@@ -8,6 +8,6 @@ namespace team17_textRPG
 {
     internal class Character
     {
-
+        public string Name { get; private set; }
     }
 }
