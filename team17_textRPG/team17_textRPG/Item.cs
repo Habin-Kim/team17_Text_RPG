@@ -17,8 +17,15 @@ namespace team17_textRPG
     
     class Item
     {   
+        public string Name { get; private set; }
+        public int Effect { get; private set; }
         static int hpPotion = 3;
     
+        public Item()
+        {
+            Name = "체력회복포션";
+            Effect = 30;
+        }
 
         public void DisplayHealUI()
         {

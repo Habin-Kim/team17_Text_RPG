@@ -15,7 +15,7 @@
             Console.Clear();
             Console.WriteLine("\n스파르타 던전에 오신 여러분 환영합니다.");
             Console.WriteLine("이제 전투를 시작할 수 있습니다.");
-            Console.WriteLine("\n1. 상태 보기\n2. 전투 시작");
+            Console.WriteLine("\n1. 상태 보기\n2. 인벤토리\t3. 전투 시작");
             Console.WriteLine("\n원하시는 행동을 입력해 주세요.");
             Console.Write(">>");
             result = CheckInput(1, 2);
@@ -26,6 +26,9 @@
                     ShowStats();
                     break;
                 case 2:
+                    character.ShowInv();
+                    break;
+                case 3:
                     //전투시작
                     break;
             }
