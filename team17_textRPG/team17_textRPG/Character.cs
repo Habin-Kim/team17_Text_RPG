@@ -4,20 +4,31 @@
     {
         public string Name { get; private set; }
         public string Job { get; private set; }
+        private string[] Jobs = new string[] { "전사", "도적" };
         public int Lv { get; private set; }
         public int Atk { get; private set; }
         public int Def { get; private set; }
         public int Hp { get; private set; }
         public int Gold { get; private set; }
 
-        public Character()
+        public Character(string name, int jobCode)
         {
-            Name = "John";
-            Job = "전사";
+            Name = name;
+            Job = Jobs[jobCode - 1];
+            if(jobCode == 1)
+            {
+                
+                Atk = 10;
+                Def = 5;
+                Hp = 100;
+            }
+            else
+            {
+                Atk = 12;
+                Def = 3;
+                Hp = 80;
+            }
             Lv = 1;
-            Atk = 10;
-            Def = 5;
-            Hp = 100;
             Gold = 1500;
         }
 
