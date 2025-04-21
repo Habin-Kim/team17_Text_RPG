@@ -5,16 +5,13 @@
         private static Character character;
         static void Main(string[] args)
         {
+            character = new Character();
             StartScene();
         }
-<<<<<<< Updated upstream
-=======
 
         static void StartScene()
         {
-            character = new Character();
             int result;
-
             Console.Clear();
             Console.WriteLine("\n스파르타 던전에 오신 여러분 환영합니다.");
             Console.WriteLine("이제 전투를 시작할 수 있습니다.");
@@ -26,8 +23,6 @@
             {
                 case 1:
                     character.ShowStats();
-                    result = CheckInput(0, 0);
-                    StartScene();
                     break;
                 case 2:
                     //전투시작
@@ -44,8 +39,6 @@
             {
                 case 0:
                     StartScene();
-                    break;
-                default:
                     break;
             }
         }
@@ -65,6 +58,4 @@
                 Console.WriteLine("잘못된 입력입니다!");
             }
         }
->>>>>>> Stashed changes
-    }
 }
