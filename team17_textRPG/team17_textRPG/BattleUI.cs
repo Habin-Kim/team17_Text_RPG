@@ -11,6 +11,7 @@ namespace team17_textRPG
     internal class BattleUI
     {
         public Random rand = new Random();
+        Program program = new Program();
         
         public void CharacterAttack(Character character, Monsters monster)
         {
@@ -55,9 +56,9 @@ namespace team17_textRPG
 
         public void BattleStart()
         {
+             
             List<Monsters> monsters = new List<Monsters>();
             Character character = new Character();
-            
             
 
             //몬스터 생성 및 몬스터 정보
@@ -65,17 +66,52 @@ namespace team17_textRPG
             {
                 Console.WriteLine("Battle!!");
                 Console.WriteLine();
+               
                 foreach (Monsters monster in monsters)
                 {
-                    monster.DisplayInfo();
+                    monster.SpawnInfo();
                 }
+                //캐릭터 정보
+                Console.WriteLine($"{character.Name}\n{character.Lv} {character.Name} {character.Job}\n HP {character.Hp}");
 
-                Console.WriteLine($"{character.Name}\n{character.Lv} {character.Name} {character.Job}\n ")
+                Console.WriteLine("1. 공격");
+                Console.WriteLine();
+                Console.WriteLine("원하시는 행동을 입력해주세요");
+                Console.Write(">>");
 
+                int result = program.CheckInput(0, 1);
+
+                switch (result)
+                {
+                    case 0:
+                        break;
+                    case 1:
+                        Console.WriteLine();
+                        Console.WriteLine("0. 취소");
+                        Console.WriteLine();
+                        Console.WriteLine("대상을 선택해 주세요.");
+                        Console.Write(">>");
+                        bool input = int.TryParse(Console.ReadLine(), out int choice);
+                        if (!input || choice <0 || choice > monsters.Count)
+                        {
+                            Console.WriteLine("다시 선택해 주세요.");
+                        }
+                        else
+                        {
+                            int index = choice - 1;
+                            Monsters target = monsters[index];
+                            
+                            CharacterAttack(character, target);
+                        }
+                       break;
+                }
                 
+               
+
+
             }
 
-            //캐릭터 정보
+            
             
 
             Console.WriteLine("1. 공격");
