@@ -35,6 +35,7 @@ namespace team17_textRPG
 
         public void DisplayHealUI()
         {
+            Console.Clear();
             Console.WriteLine("회복");
             Console.WriteLine($"포션을 사용하면 체력을 30 회복할 수 있습니다. (남은 포션 : {hpPotion})");
             Console.WriteLine();
@@ -88,18 +89,10 @@ namespace team17_textRPG
                     }
                 }
             }
-        }
 
         public void DisplayInventory()
         {
 
-        }
-    }
-        }
-
-        public void DisplayInventory()
-        {
-            
         }
     }
 }
