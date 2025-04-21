@@ -57,6 +57,7 @@ namespace team17_textRPG
                 {
                     Console.WriteLine("체력이 회복되었습니다.");
                     Hp = Math.Min(Hp + 30, maxHp); // 둘 중 작은 값 출력;
+                    hpPotion --;
                 }
                 else
                 {
