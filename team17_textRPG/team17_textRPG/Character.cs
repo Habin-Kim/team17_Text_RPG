@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace team17_textRPG
 {
-    internal class Class1
+    internal class Character
     {
+
     }
 }
