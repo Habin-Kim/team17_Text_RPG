@@ -16,14 +16,15 @@ namespace team17_textRPG
 {
     
     class Item
-    {   
+    {
+        private static Character player;
         public string Name { get; private set; }
         public int Effect { get; private set; }
         static int hpPotion = 3;
         public int maxHp = 100;
         Program program = new Program();
-        Character player = new Character();
-        int currentHP = player.Hp;
+        //Character player = new Character();
+        //int currentHP = player.Hp;
 
 
     
