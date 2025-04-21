@@ -12,6 +12,7 @@ namespace team17_textRPG
 
         bool isDead = false;
 
+        // 몬스터 레벨에 따라서 스탯 정해짐
         public Monsters(string name, int level, int atk, int hp)
         {
             Name = name;
@@ -69,7 +70,16 @@ namespace team17_textRPG
         // 전투 시 출력 될 몬스터 정보
         public void BattleInfo()
         {
-            Console.WriteLine($"Lv.{Level} {Name} HP {Hp}");
+            if (isDead)
+            {
+                Console.ForegroundColor = ConsoleColor.DarkGray;
+                Console.WriteLine($" Lv.{Level} {Name} Dead");
+            }
+            else
+            {
+                Console.WriteLine($" Lv.{Level} {Name}  HP: {Hp}");
+            }
+            Console.ResetColor();
         }
 
         // 몬스터 피격
@@ -82,7 +92,7 @@ namespace team17_textRPG
         // 몬스터 공격
         public void Attack()
         {
-            if(!isDead)
+            if (!isDead)
             {
                 // 플레이어 체력 - 몬스터 공격력
             }
@@ -90,7 +100,7 @@ namespace team17_textRPG
 
         public void CheckDeath()
         {
-            if(0 <= Hp)
+            if (Hp <= 0)
             {
                 isDead = true;
             }
