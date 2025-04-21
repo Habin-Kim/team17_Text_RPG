@@ -23,11 +23,22 @@
             {
                 case 1:
                     character.ShowStats();
-                    result = CheckInput(0, 0);
-                    StartScene();
                     break;
                 case 2:
                     //전투시작
+                    break;
+            }
+        }
+
+        static void ShowStats()
+        {
+            int result;
+            character.ShowStats();
+            result = CheckInput(0, 0);
+            switch (result)
+            {
+                case 0:
+                    StartScene();
                     break;
             }
         }
@@ -47,8 +58,4 @@
                 Console.WriteLine("잘못된 입력입니다!");
             }
         }
-    }
-
-
-
 }
