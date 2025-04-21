@@ -47,7 +47,7 @@
             }
         }
 
-        static int CheckInput(int min, int max)
+        public int CheckInput(int min, int max)
         {
             int result;
             while (true)
