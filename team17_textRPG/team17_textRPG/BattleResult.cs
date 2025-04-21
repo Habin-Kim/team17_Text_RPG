@@ -36,8 +36,8 @@ namespace TeamProject
 
             Console.WriteLine($"\n던전에서 몬스터 {KilledMonster}마리를 잡았습니다.");
 
-            Console.WriteLine($"Lv.{Level} {Name}");
-            Console.WriteLine($"HP {MaxHp} -> {ResultHp}");
+            Console.WriteLine("Lv. {0:D2} {1}", Lv, Name);
+            Console.WriteLine($"HP {RecentHp} -> {ResultHp}");
 
             Console.WriteLine("0. 다음");
             Console.Write(">> ");
@@ -62,8 +62,8 @@ namespace TeamProject
             Console.WriteLine("\nYou Lose...");
             Console.ResetColor();
 
-            Console.WriteLine($"Lv.{Level} {Name}");
-            Console.WriteLine($"HP {MaxHp} -> {ResultHp}");
+            Console.WriteLine("Lv. {0:D2} {1}", Lv, Name);
+            Console.WriteLine($"HP {RecentHp} -> {ResultHp}");
 
             Console.WriteLine("0. 다음");
             Console.Write(">> ");
