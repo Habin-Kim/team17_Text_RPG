@@ -42,7 +42,7 @@
             Console.WriteLine("\nYou Lose...");
             Console.ResetColor();
 
-            Console.WriteLine($"Lv.{Level} {Name}");
+            Console.WriteLine("Lv. {0:D2} {1}"Lv, Name);
             Console.WriteLine($"HP {MaxHp} -> {ResultHp}");
 
             Console.WriteLine("0. 다음");
