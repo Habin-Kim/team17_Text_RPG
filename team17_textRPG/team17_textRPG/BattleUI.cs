@@ -11,8 +11,8 @@ namespace team17_textRPG
     internal class BattleUI
     {
         public Random rand = new Random();
-
-        public void CharacterAttack(Character character, Monster monster)
+        
+        public void CharacterAttack(Character character, Monsters monster)
         {
             int errorRangeCA = (int)Math.Ceiling(character.Atk * 0.1);
             int damage = rand.Next(character.Atk - errorRangeCA, character.Atk + errorRangeCA + 1);
@@ -20,7 +20,7 @@ namespace team17_textRPG
             ApplyDamage(monster, damage);
         }
 
-        public void MonsterAttack(Monster monster, Character character)
+        public void MonsterAttack(Monsters monster, Character character)
         {
             int errorRangeMA = (int)Math.Ceiling(monster.Atk * 0.1);
             int damage = rand.Next(monster.Atk - errorRangeMA, monster.Atk + errorRangeMA + 1);
@@ -36,7 +36,7 @@ namespace team17_textRPG
             Console.WriteLine($"Lv.{character.Lv} {character.Name}\nHP {originalHp} -> {character.Hp}");
         }
 
-        public void ApplyDamage(Monster monster, int damage)
+        public void ApplyDamage(Monsters monster, int damage)
         {
             int originalHp = monster.Hp;
             monster.Hp -= damage;
@@ -51,6 +51,34 @@ namespace team17_textRPG
                 Console.WriteLine($"\n{monster.Level} {monster.Name} 을(를) 맞췄습니다. [데미지 : {damage}]");
                 Console.WriteLine($"{monster.Level} {monster.Name}\nHP {originalHp} -> {monster.Hp}");
             }
+        }
+
+        public void BattleStart()
+        {
+            List<Monsters> monsters = new List<Monsters>();
+
+            
+            
+
+            //몬스터 생성
+            while (true)
+            {
+                Console.WriteLine("Battle!!");
+                Console.WriteLine();
+                foreach (Monsters monster in monsters)
+                {
+                    monster.DisplayInfo();
+                }
+
+                
+            }
+
+            //캐릭터 정보
+            
+
+            Console.WriteLine("1. 공격");
+
+
         }
 
     }
