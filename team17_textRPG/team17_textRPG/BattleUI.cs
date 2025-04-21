@@ -56,11 +56,11 @@ namespace team17_textRPG
         public void BattleStart()
         {
             List<Monsters> monsters = new List<Monsters>();
-
+            Character character = new Character();
             
             
 
-            //몬스터 생성
+            //몬스터 생성 및 몬스터 정보
             while (true)
             {
                 Console.WriteLine("Battle!!");
@@ -69,6 +69,8 @@ namespace team17_textRPG
                 {
                     monster.DisplayInfo();
                 }
+
+                Console.WriteLine($"{character.Name}\n{character.Lv} {character.Name} {character.Job}\n ")
 
                 
             }
