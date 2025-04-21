@@ -23,12 +23,18 @@
 
         public void ShowStats()
         {
+            Console.Clear();
+            Console.WriteLine("\n상태보기");
+            Console.WriteLine("캐릭터의 정보가 표시됩니다.\n");
             Console.WriteLine("Lv. {0:D2}", Lv);
             Console.WriteLine($"{Name} ({Job})");
             Console.WriteLine($"공격력: {Atk}");
             Console.WriteLine($"방어력: {Def}");
             Console.WriteLine($"체 력: {Hp}");
             Console.WriteLine($"Gold: {Gold}");
+            Console.WriteLine("\n0.나가기");
+            Console.WriteLine("\n원하시는 행동을 입력해 주세요.");
+            Console.Write(">>");
         }
 
 
