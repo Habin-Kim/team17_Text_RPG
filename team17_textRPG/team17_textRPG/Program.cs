@@ -23,6 +23,7 @@
             {
                 case 1:
                     character.ShowStats();
+                    ShowStats();
                     break;
                 case 2:
                     //전투시작
