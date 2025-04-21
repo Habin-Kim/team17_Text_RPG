@@ -100,7 +100,7 @@ namespace team17_textRPG
 
         public void CheckDeath()
         {
-            if (0 <= Hp)
+            if (Hp <= 0)
             {
                 isDead = true;
             }
