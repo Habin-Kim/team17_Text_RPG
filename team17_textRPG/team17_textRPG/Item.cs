@@ -6,7 +6,7 @@ namespace team17_textRPG
         public string Name { get; private set; }
         public int Effect { get; private set; }
         static int hpPotion = 3;
-        private Character character = new Character();
+        private Character character;
         Program program = new Program();
         //int currentHP = player.Hp;
 
@@ -30,7 +30,7 @@ namespace team17_textRPG
             Console.WriteLine("원하시는 행동을 입력해주세요");
             Console.Write(">>");
 
-            int result = program.CheckInput(0,1);
+            int result = Program.CheckInput(0,1);
 
             switch(result)
             {
@@ -65,7 +65,7 @@ namespace team17_textRPG
                 Console.WriteLine();
                 Console.WriteLine("0. 나가기");
 
-                int result = program.CheckInput(0,0);
+                int result = Program.CheckInput(0,0);
                 switch(result)
                 {
                     case 0:
@@ -75,6 +75,7 @@ namespace team17_textRPG
                 }
             }
         }
+        // 몬스터 사망시 함수 추가.
         public void GetHpPotion()
         {
             Random rand = new Random();
