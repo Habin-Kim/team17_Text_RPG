@@ -30,7 +30,7 @@ namespace team17_textRPG
                 damage *= (int)Math.Ceiling(damage * 1.6f);
             }
             Console.WriteLine($"\n{character.Name} 의 공격!");
-            ApplyDamage(monster, damage);
+            ApplyDamage(monster, damage, isCritical);
         }
 
         public void MonsterAttack(Monsters monster, Character character)
@@ -44,9 +44,9 @@ namespace team17_textRPG
                 damage *= (int)Math.Ceiling(damage * 1.6f);
             }
             Console.WriteLine($"{monster.Level} {monster.Name} 의 공격!");
-            ApplyDamage(character, damage);
+            ApplyDamage(character, damage, isCritical);
         }
-        public void ApplyDamage(Character character, int damage, bool isCritical)
+        public void ApplyDamage(Character character, int damage, bool isCritical = false)
         {
             int originalHp = character.Hp;
             character.Hp -= damage;
@@ -54,10 +54,9 @@ namespace team17_textRPG
             Console.WriteLine($"\nLv.{character.Lv} {character.Name} 을(를) 맞췄습니다.  [데미지 : {damage}]{(isCritical? "치명타 공격!!" :"")}");
             Console.WriteLine($"Lv.{character.Lv} {character.Name}\nHP {originalHp} -> {character.Hp}");
 
-            
         }
 
-        public void ApplyDamage(Monsters monster, int damage, bool isCritical)
+        public void ApplyDamage(Monsters monster, int damage, bool isCritical = false)
         {
             int originalHp = monster.Hp;
             monster.Hp -= damage;
