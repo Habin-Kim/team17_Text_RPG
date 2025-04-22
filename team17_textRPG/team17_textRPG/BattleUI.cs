@@ -76,7 +76,7 @@ namespace team17_textRPG
                 monsters[i].SpawnInfo();
             }
             //캐릭터 정보 불러오기
-            Console.WriteLine($"{character.Name}\n{character.Lv} {character.Name} {character.Job}\n HP {character.Hp}");
+            Console.WriteLine($"{character.Name}\n{character.Lv} {character.Name} ({character.Job})\n HP {character.Hp}");
 
             Console.WriteLine("1. 공격");
             Console.WriteLine();
@@ -110,7 +110,7 @@ namespace team17_textRPG
                     Console.WriteLine($"{i + 1} {monsters[i].Level} {monsters[i].Name} {monsters[i].Hp}");
                 }
                 //캐릭터 정보 불러오기
-                Console.WriteLine($"{character.Name}\n{character.Lv} {character.Name} {character.Job}\n HP {character.Hp}");
+                Console.WriteLine($"{character.Name}\n{character.Lv} {character.Name} ({character.Job})\n HP {character.Hp}");
 
                 Console.WriteLine("0. 취소");
                 Console.WriteLine();
@@ -155,23 +155,25 @@ namespace team17_textRPG
         {
             //List<Monsters> monsters = new List<Monsters>();
             //전투화면 (몬스터공격)
-            Console.WriteLine("Battle!!");
-            Console.WriteLine();
-            for (int i = 0; i < monsters.Count; i++)
+            while (true)
             {
-                if (monsters[i].Hp > 0)
+                Console.WriteLine("Battle!!");
+                Console.WriteLine();
+                for (int i = 0; i < monsters.Count; i++)
                 {
-                    MonsterAttack(monsters[i], character);
-                    Console.WriteLine("0. 다음");
-                    Console.ReadLine();
-                }
-                if (character.Hp <= 0)
-                {
-                    BattleResult.Lose();
-                    break;
+                    if (monsters[i].Hp > 0)
+                    {
+                        MonsterAttack(monsters[i], character);
+                        Console.WriteLine("0. 다음");
+                        Console.ReadLine();
+                    }
+                    if (character.Hp <= 0)
+                    {
+                        BattleResult.Lose();
+                        break;
+                    }
                 }
             }
-
         }
 
     }
