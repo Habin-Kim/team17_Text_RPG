@@ -10,6 +10,8 @@
         public int Def { get; private set; }
         public int Hp { get; private set; }
         public int Gold { get; private set; }
+        public int[] MaxExp { get; private set; }
+        public int currentExp { get; private set; }
 
         public Character(string name, int jobCode)
         {
@@ -30,6 +32,8 @@
             }
             Lv = 1;
             Gold = 1500;
+            MaxExp = new int[] { 10, 35, 65, 100 };
+            currentExp = 0;
         }
 
         List<Item> itemList = new List<Item>();
@@ -56,13 +60,32 @@
             Console.Clear();
             Console.WriteLine("\n인벤토리");
             Console.WriteLine("인벤토리의 정보가 표시됩니다.\n");
-            for(int i  = 0; i < itemCount; i++)
+            for (int i = 0; i < itemCount; i++)
             {
                 Console.WriteLine($"{itemList[i].Name}   체력{itemList[i].Effect}회복");
-            } 
+            }
             Console.WriteLine("\n1.장비  2.물약  0.나가기");
             Console.WriteLine("\n원하시는 행동을 입력해 주세요.");
             Console.Write(">>");
+        }
+        public void GetExp(int exp)
+        {
+            if (Lv == 5)
+            {
+                return;
+            }
+            else if (currentExp + exp < MaxExp[Lv - 1])
+            {
+                currentExp += exp;
+                return;
+            }
+            else
+            {
+                Lv++;
+                currentExp = 0;
+                Console.WriteLine($"레벨 업!");
+                GetExp(currentExp + exp - MaxExp[Lv - 2]);
+            }
         }
     }
 }

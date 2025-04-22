@@ -3,10 +3,12 @@
     internal class Program
     {
         private static Character character;
+        private static Gears[] gearDb;
         static void Main(string[] args)
         {
-            
+
             CreateCharacter();
+            LoadGear();
             StartScene();
         }
         static void CreateCharacter()
@@ -27,13 +29,28 @@
             getInt = CheckInput(1, 2);
             character = new Character(getString, getInt);
         }
+        static void LoadGear()
+        {
+            gearDb = new Gears[]
+            {
+                new Gears("목검", "나무로 만든 검", 2, 500, 1),
+                new Gears("철검","철로 만든 검", 5, 1000, 1),
+                new Gears("강철검","강철로 만든 검", 10, 2000, 1),
+                new Gears("목방패", "나무로 만든 방패", 2, 500, 2),
+                new Gears("철방패","철로 만든 방패", 5, 1000, 2),
+                new Gears("강철방패","강철로 만든 방패", 10, 2000, 2),
+                new Gears("나무갑옷", "나무로 만든 갑옷", 2, 500, 3),
+                new Gears("철갑옷","철로 만든 갑옷", 5, 1000, 3),
+                new Gears("강철갑옷","강철로 만든 갑옷", 10, 2000, 3)
+            };
+        }
         static void StartScene()
         {
             int result;
             Console.Clear();
             Console.WriteLine("\n스파르타 던전에 오신 여러분 환영합니다.");
             Console.WriteLine("이제 전투를 시작할 수 있습니다.");
-            Console.WriteLine("\n1. 상태 보기\n2. 인벤토리\t3. 전투 시작");
+            Console.WriteLine("\n1. 상태 보기\n2. 상점\n3. 인벤토리\n4. 전투 시작");
             Console.WriteLine("\n원하시는 행동을 입력해 주세요.");
             Console.Write(">>");
             result = CheckInput(1, 2);
@@ -44,9 +61,12 @@
                     ShowStats();
                     break;
                 case 2:
-                    character.ShowInv();
+                    ShowStore();
                     break;
                 case 3:
+                    //character.ShowInv();
+                    break;
+                case 4:
                     //전투시작
                     break;
             }
@@ -62,6 +82,35 @@
                 case 0:
                     StartScene();
                     break;
+            }
+        }
+        static void ShowStore()
+        {
+            int gearCount = gearDb.Count();
+            int typeBefore = 0;
+            string eff;
+            Console.Clear();
+            Console.WriteLine("\n상점\n");
+            for (int i = 0; i < gearCount; i++)
+            {
+                if (typeBefore != gearDb[i].Type)
+                {
+                    switch (gearDb[i].Type)
+                    {
+                        case 1:
+                            Console.WriteLine("[검]");
+                            break;
+                        case 2:
+                            Console.WriteLine("[방패]");
+                            break;
+                        default:
+                            Console.WriteLine("[갑옷]");
+                            break;
+                    }
+                    eff = gearDb[i].Type == 1 ? "공격력" : "방어력";
+                    Console.WriteLine($"- {gearDb[i].Name}  | {eff}+{gearDb[i].Effect}  | {gearDb[i].Desc}  | {gearDb[i].Price}");
+                    typeBefore = gearDb[i].Type;
+                }
             }
         }
 
