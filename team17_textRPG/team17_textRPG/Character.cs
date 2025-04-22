@@ -236,10 +236,8 @@
 
         void PlayerGetDamage(int damage)
         {
-            int[] health = new int[2];
-
             Console.WriteLine($"Lv.{Lv} {Name}");
-            Console.WriteLine($"Hp {Hp} -> {Hp -= damage}");
+            Console.WriteLine($"Hp {Hp} -> {Hp - damage}");
             Hp -= damage;
         }
     }
