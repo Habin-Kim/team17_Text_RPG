@@ -27,7 +27,7 @@ namespace team17_textRPG
             bool isCritical = rand.Next(0, 100) < 15;
             if(isCritical)
             {
-                damage *= (int)Math.Ceiling(damage * 1.6f);
+                damage = (int)Math.Ceiling(damage * 1.6f);
             }
             Console.WriteLine($"\n{character.Name} 의 공격!");
             ApplyDamage(monster, damage, isCritical);
@@ -42,7 +42,7 @@ namespace team17_textRPG
             bool isCritical = rand.Next(0, 100) < 15;
             if (isCritical)
             {
-                damage *= (int)Math.Ceiling(damage * 1.6f);
+                damage = (int)Math.Ceiling(damage * 1.6f);
             }
             Console.WriteLine($"{monster.Level} {monster.Name} 의 공격!");
             ApplyDamage(character, damage, isCritical);
