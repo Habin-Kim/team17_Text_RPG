@@ -80,7 +80,13 @@ namespace team17_textRPG
         public void Damage(ref int monsterCount)
         {
             // 몬스터 체력 - 플레이어 공격 
-            CheckDeath(ref monsterCount);
+            if (Hp <= 0 && !isDead)
+            {
+                isDead = true;
+                monsterCount--;
+                Console.WriteLine($"Lv.{Level} {Name}");
+                Console.WriteLine($"HP {Hp} -> Dead");
+            }
         }
 
         // 몬스터 공격
@@ -90,16 +96,6 @@ namespace team17_textRPG
             {
                 // 플레이어 체력 - 몬스터 공격력
                 // 캐릭터 클래스에 공격력을 전달 해줘서 방어력 데미지 감소 후 할 건지 
-            }
-        }
-
-        public void CheckDeath(ref int monsterCount)
-        {
-            if (Hp <= 0 && !isDead)
-            {
-                // 필요한지 고민 Damage에서 넣어줘도 된다 생각
-                isDead = true;
-                monsterCount--;
             }
         }
     }
