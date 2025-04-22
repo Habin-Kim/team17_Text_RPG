@@ -24,7 +24,6 @@
             Job = Jobs[jobCode - 1];
             if(jobCode == 1)
             {
-                
                 Atk = 10;
                 Def = 5;
                 Hp = 100;
@@ -87,6 +86,7 @@
 
         void ShowInvList(int type)
         {
+            int typeBefore = 0;
             int InvGearCount = InventoryGears.Count;
             string eff;
             //for (int i = 0; i < itemCount; i++)
@@ -95,8 +95,24 @@
             //}
             for (int i = 0; i < InvGearCount; i++)
             {
+                if (typeBefore != InventoryGears[i].Type)
+                {
+                    switch (InventoryGears[i].Type)
+                    {
+                        case 1:
+                            Console.WriteLine("[검]");
+                            break;
+                        case 2:
+                            Console.WriteLine("\n[방패]");
+                            break;
+                        default:
+                            Console.WriteLine("\n[갑옷]");
+                            break;
+                    }
+                }
                 eff = InventoryGears[i].Type == 1 ? "공격력" : "방어력";
                 Console.WriteLine($"-{(type == 1 ? "" : i + 1)} {(InventoryGears[i].isEquipped ? "[E]" : "")}{InventoryGears[i].Name}  | {eff}+{InventoryGears[i].Effect}  | {InventoryGears[i].Desc}");
+                typeBefore = Program.gearDb[i].Type;
             }
         }
         void EquipGear()
@@ -139,15 +155,11 @@
                         if (gear.Type == 1)
                         {
                             extraAtk -= gear.Effect;
-
                         }
                         else
                         {
                             extraDef -= gear.Effect;
-
                         }
-
-
                     }
                     else
                     {
@@ -155,13 +167,33 @@
                         gear.isEquipped = true;
                         if (gear.Type == 1)
                         {
+                            if(gearSlot[0] != -1)
+                            {
+                                InventoryGears[gearSlot[0]].isEquipped = false;
+                                EquippedGears.Remove(InventoryGears[gearSlot[0]]);
+                            }
                             extraAtk += gear.Effect;
-
+                            gearSlot[0] = iNum;
+                        }
+                        else if(gear.Type == 2)
+                        {
+                            if (gearSlot[1] != -1)
+                            {
+                                InventoryGears[gearSlot[1]].isEquipped = false;
+                                EquippedGears.Remove(InventoryGears[gearSlot[1]]);
+                            }
+                            extraDef += gear.Effect;
+                            gearSlot[1] = iNum;
                         }
                         else
                         {
+                            if (gearSlot[2] != -1)
+                            {
+                                InventoryGears[gearSlot[2]].isEquipped = false;
+                                EquippedGears.Remove(InventoryGears[gearSlot[2]]);
+                            }
                             extraDef += gear.Effect;
-
+                            gearSlot[2] = iNum;
                         }
                     }
                     ShowInv();
