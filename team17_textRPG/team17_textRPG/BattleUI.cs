@@ -23,6 +23,12 @@ namespace team17_textRPG
         {
             int errorRangeCA = (int)Math.Ceiling(character.Atk * 0.1);
             int damage = rand.Next(character.Atk - errorRangeCA, character.Atk + errorRangeCA + 1);
+
+            bool isCritical = rand.Next(0, 100) < 15;
+            if(isCritical)
+            {
+                damage *= (int)Math.Ceiling(damage * 1.6f);
+            }
             Console.WriteLine($"\n{character.Name} 의 공격!");
             ApplyDamage(monster, damage);
         }
@@ -31,31 +37,39 @@ namespace team17_textRPG
         {
             int errorRangeMA = (int)Math.Ceiling(monster.Atk * 0.1);
             int damage = rand.Next(monster.Atk - errorRangeMA, monster.Atk + errorRangeMA + 1);
+            
+            bool isCritical = rand.Next(0, 100) < 15;
+            if (isCritical)
+            {
+                damage *= (int)Math.Ceiling(damage * 1.6f);
+            }
             Console.WriteLine($"{monster.Level} {monster.Name} 의 공격!");
             ApplyDamage(character, damage);
         }
-        public void ApplyDamage(Character character, int damage)
+        public void ApplyDamage(Character character, int damage, bool isCritical)
         {
             int originalHp = character.Hp;
             character.Hp -= damage;
             if (character.Hp < 0) character.Hp = 0;
-            Console.WriteLine($"\nLv.{character.Lv} {character.Name} 을(를) 맞췄습니다.  [데미지 : {damage}]");
+            Console.WriteLine($"\nLv.{character.Lv} {character.Name} 을(를) 맞췄습니다.  [데미지 : {damage}]{(isCritical? "치명타 공격!!" :"")}");
             Console.WriteLine($"Lv.{character.Lv} {character.Name}\nHP {originalHp} -> {character.Hp}");
+
+            
         }
 
-        public void ApplyDamage(Monsters monster, int damage)
+        public void ApplyDamage(Monsters monster, int damage, bool isCritical)
         {
             int originalHp = monster.Hp;
             monster.Hp -= damage;
             if (monster.Hp <= 0)
             {
                 monster.Hp = 0;
-                Console.WriteLine($"\n{monster.Level} {monster.Name} 을(를) 맞췄습니다. [데미지 : {damage}]");
+                Console.WriteLine($"\n{monster.Level} {monster.Name} 을(를) 맞췄습니다. [데미지 : {damage}]{(isCritical ? "치명타 공격!!" : "")}");
                 Console.WriteLine($"{monster.Level} {monster.Name}\nHP {originalHp} -> Dead");
             }
             else
             {
-                Console.WriteLine($"\n{monster.Level} {monster.Name} 을(를) 맞췄습니다. [데미지 : {damage}]");
+                Console.WriteLine($"\n{monster.Level} {monster.Name} 을(를) 맞췄습니다. [데미지 : {damage}]{(isCritical ? "치명타 공격!!" : "")}");
                 Console.WriteLine($"{monster.Level} {monster.Name}\nHP {originalHp} -> {monster.Hp}");
             }
         }
