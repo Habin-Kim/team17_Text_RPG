@@ -19,7 +19,7 @@ namespace team17_textRPG
             Console.WriteLine("\n1.장비 구매  0.나가기");
             Console.WriteLine("\n원하시는 행동을 입력해 주세요.");
             Console.Write(">>");
-            result = CheckInput(0, 1);
+            result = Program.CheckInput(0, 1);
             switch (result)
             {
                 case 0:
@@ -42,7 +42,7 @@ namespace team17_textRPG
             Console.WriteLine("\n구매하실 장비의 번호를 입력하세요  0.나가기");
             Console.WriteLine("\n원하시는 행동을 입력해 주세요.");
             Console.Write(">>");
-            result = CheckInput(0, gearCount);
+            result = Program.CheckInput(0, gearCount);
             Gears gear = Program.gearDb[result - 1];
             if (result == 0)
             {
@@ -59,7 +59,7 @@ namespace team17_textRPG
                 Console.WriteLine("\n원하시는 행동을 입력해 주세요.");
                 Console.Write(">>");
 
-                result = CheckInput(0, 1);
+                result = Program.CheckInput(0, 1);
                 switch (result)
                 {
                     case 0:
@@ -78,7 +78,7 @@ namespace team17_textRPG
                             Console.WriteLine("\n1.인벤토리 0.나가기");
                             Console.WriteLine("\n원하시는 행동을 입력해 주세요.");
                             Console.Write(">>");
-                            result = CheckInput(0, 1);
+                            result = Program.CheckInput(0, 1);
                             switch (result)
                             {
                                 case 0:
@@ -99,7 +99,7 @@ namespace team17_textRPG
                             Console.WriteLine("\n0.나가기");
                             Console.WriteLine("\n원하시는 행동을 입력해 주세요.");
                             Console.Write(">>");
-                            result = CheckInput(0, 0);
+                            result = Program.CheckInput(0, 0);
                             ShowStore();
                         }
                         else
@@ -112,30 +112,12 @@ namespace team17_textRPG
                             Console.WriteLine("\n0.나가기");
                             Console.WriteLine("\n원하시는 행동을 입력해 주세요.");
                             Console.Write(">>");
-                            result = CheckInput(0, 0);
+                            result = Program.CheckInput(0, 0);
                             ShowStore();
                         }
                         break;
                 }
             }
-
         }
-        
-
-        private static int CheckInput(int min, int max)
-        {
-            int result;
-            while (true)
-            {
-                string input = Console.ReadLine();
-                bool isNumber = int.TryParse(input, out result);
-                if (isNumber)
-                {
-                    if (result >= min && result <= max)
-                        return result;
-                }
-                Console.WriteLine("잘못된 입력입니다!");
-            }
-        }        
     }
 }
