@@ -22,7 +22,7 @@
         {
             Name = name;
             Job = Jobs[jobCode - 1];
-            if(jobCode == 1)
+            if (jobCode == 1)
             {
                 Atk = 10;
                 Def = 5;
@@ -167,7 +167,7 @@
                         gear.isEquipped = true;
                         if (gear.Type == 1)
                         {
-                            if(gearSlot[0] != -1)
+                            if (gearSlot[0] != -1)
                             {
                                 InventoryGears[gearSlot[0]].isEquipped = false;
                                 EquippedGears.Remove(InventoryGears[gearSlot[0]]);
@@ -175,7 +175,7 @@
                             extraAtk += gear.Effect;
                             gearSlot[0] = iNum;
                         }
-                        else if(gear.Type == 2)
+                        else if (gear.Type == 2)
                         {
                             if (gearSlot[1] != -1)
                             {
@@ -231,7 +231,14 @@
         }
         public void PlusHp(int amount)
         {
-            Hp = Math.Min(Hp + amount, maxHp); 
+            Hp = Math.Min(Hp + amount, maxHp);
+        }
+
+        void PlayerGetDamage(int damage)
+        {
+            Console.WriteLine($"Lv.{Lv} {Name}");
+            Console.WriteLine($"Hp {Hp} -> {Hp - damage}");
+            Hp -= damage;
         }
     }
 }
