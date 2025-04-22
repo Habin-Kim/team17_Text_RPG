@@ -12,6 +12,7 @@
         public int Gold { get; private set; }
         public int[] MaxExp { get; private set; }
         public int currentExp { get; private set; }
+        public int maxHp = 100;
 
         public Character(string name, int jobCode)
         {
@@ -100,6 +101,10 @@
                 Console.WriteLine($"레벨 업!");
                 GetExp(currentExp + exp - MaxExp[Lv - 2]);
             }
+        }
+        public void PlusHp(int amount)
+        {
+            Hp = Math.Min(Hp + amount, maxHp); 
         }
     }
 }
