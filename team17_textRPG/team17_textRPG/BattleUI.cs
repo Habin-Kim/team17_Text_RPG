@@ -11,10 +11,9 @@ namespace team17_textRPG
     internal class BattleUI
     {
         public Random rand = new Random();
-        Program program = new Program();
         public List<Monsters> monsters;
         public Character character;
-
+        
         public BattleUI(Character character, List<Monsters> monsters)
         {
             this.character = character;
@@ -143,7 +142,7 @@ namespace team17_textRPG
 
                         break;
                 }
-                bool allMonstersDead = monsters.TrueForAll(monsters => monsters.Hp == 0);
+                bool allMonstersDead = monsters.TrueForAll(monsters => monsters.Hp <= 0);
                 if (allMonstersDead)
                 {
                     BattleResult.Victory();
