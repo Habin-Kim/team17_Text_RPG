@@ -17,6 +17,7 @@ namespace team17_textRPG
             Effect = 30;
         }
 
+        //회복 UI
         public void DisplayHealUI()
         {
             Console.Clear();
@@ -39,11 +40,14 @@ namespace team17_textRPG
                     break;
                 }
                 case 1:
+                {
                     UseHpPotion();
                     break;
+                }
             }
-        }
+        }   
 
+        // 체력회복포션 사용
         public void UseHpPotion()
         {
             if (hpPotion > 0)
@@ -76,12 +80,12 @@ namespace team17_textRPG
                 }
             }
         }
-        // 몬스터 사망시 함수 추가.
+        // 몬스터 사냥시 체력회복포션 획득      
         public void GetHpPotion()
         {
             Random rand = new Random();
             int chance = rand.Next(0, 100);
-            if (chance < 5)
+            if (chance < 5) // 5% 확률
             {   
                 Console.WriteLine($"체력회복포션을 1개 얻었습니다.");
                 hpPotion ++;
