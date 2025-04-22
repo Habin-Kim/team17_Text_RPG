@@ -6,11 +6,8 @@ namespace team17_textRPG
         public string Name { get; private set; }
         public int Effect { get; private set; }
         static int hpPotion = 3;
-        private Character character;
         Program program = new Program();
-        BattleUI battelui;
 
-    
         public Item()
         {
             Name = "체력회복포션";
@@ -36,7 +33,7 @@ namespace team17_textRPG
             {
                 case 0:
                 {   
-                    battelui.BattleStart();
+                    // battelui.BattleStart();
                     break;
                 }
                 case 1:
@@ -49,19 +46,51 @@ namespace team17_textRPG
 
         // 체력회복포션 사용
         public void UseHpPotion()
-        {
+        {   
             if (hpPotion > 0)
             {
-                if(character.Hp < character.maxHp)
-                {
+
+                if(Program.character.Hp < Program.character.MaxHp)
+                {   
+                    Console.Clear();
                     Console.WriteLine("체력이 회복되었습니다.");
-                    character.HealHp(Effect);
-                    Console.WriteLine($"현재체력 : {character.Hp}");
+                    Program.character.HealHp(Effect);
+                    Console.WriteLine($"현재체력 : {Program.character.Hp}");
                     hpPotion --;
+                    Console.WriteLine();
+                    Console.WriteLine("1. 또 사용하기");
+                    Console.WriteLine("0. 나가기");
+
+                    int result = Program.CheckInput(0,1);
+
+                    switch(result)
+                    {
+                        case 1:
+                        {
+                            UseHpPotion();
+                            break;
+                        }
+                        case 0:
+                        {   
+                            DisplayHealUI();
+                            break;
+                        }
+                    }
                 }
                 else
                 {
-                    Console.WriteLine("체력을 회복할 수 없습니다.");
+                    Console.WriteLine("최대 체력입니다. 체력을 회복할 수 없습니다.");
+                    Console.WriteLine();
+                    Console.WriteLine("0. 나가기");
+                    int result = Program.CheckInput(0,0);
+                    switch(result)
+                    {
+                        case 0:
+                        {
+                            Program.StartScene();
+                            break;
+                        }
+                    }
                 }
             }
             else
@@ -75,6 +104,7 @@ namespace team17_textRPG
                 {
                     case 0:
                     {
+                        Program.StartScene();
                         break;
                     }
                 }
@@ -96,6 +126,6 @@ namespace team17_textRPG
             }
 
         }
-    }
+    }        
 }
 
