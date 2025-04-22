@@ -8,8 +8,7 @@ namespace team17_textRPG
         static int hpPotion = 3;
         private Character character;
         Program program = new Program();
-        //int currentHP = player.Hp;
-
+        BattleUI battelui;
 
     
         public Item()
@@ -35,8 +34,9 @@ namespace team17_textRPG
             switch(result)
             {
                 case 0:
-                {
-                    break;;
+                {   
+                    battelui.BattleStart();
+                    break;
                 }
                 case 1:
                     UseHpPotion();
@@ -51,7 +51,8 @@ namespace team17_textRPG
                 if(character.Hp < character.maxHp)
                 {
                     Console.WriteLine("체력이 회복되었습니다.");
-                    character.PlusHp(Effect);
+                    character.HealHp(Effect);
+                    Console.WriteLine($"현재체력 : {character.Hp}");
                     hpPotion --;
                 }
                 else

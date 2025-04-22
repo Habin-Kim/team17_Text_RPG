@@ -197,7 +197,7 @@
                 GetExp(currentExp + exp - MaxExp[Lv - 2]);
             }
         }
-        public void PlusHp(int amount)
+        public void HealHp(int amount)
         {
             Hp = Math.Min(Hp + amount, maxHp); 
         }
