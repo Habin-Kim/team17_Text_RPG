@@ -12,7 +12,7 @@ namespace team17_textRPG
     {
         public Random rand = new Random();
         Program program = new Program();
-        public List<Monsters> monsters ;
+        public List<Monsters> monsters;
         public Character character;
 
         public BattleUI(Character character, List<Monsters> monsters)
@@ -165,16 +165,16 @@ namespace team17_textRPG
                     Console.WriteLine("0. 다음");
                     Console.ReadLine();
                 }
-                if (character.Hp <=0 )
+                if (character.Hp <= 0)
                 {
                     BattleResult.Lose();
                     break;
                 }
             }
 
-            }
-
         }
 
     }
+
 }
+
