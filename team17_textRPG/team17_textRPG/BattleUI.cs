@@ -12,7 +12,14 @@ namespace team17_textRPG
     {
         public Random rand = new Random();
         Program program = new Program();
-        
+        public List<Monsters> monsters ;
+        public Character character;
+
+        public BattleUI(Character character, List<Monsters> monsters)
+        {
+            this.character = character;
+            this.monsters = monsters;
+        }
         public void CharacterAttack(Character character, Monsters monster)
         {
             int errorRangeCA = (int)Math.Ceiling(character.Atk * 0.1);
@@ -56,56 +63,115 @@ namespace team17_textRPG
 
         public void BattleStart()
         {
-             
-            List<Monsters> monsters = new List<Monsters>();
-            Character character = new Character();
-            
+
+            //List<Monsters> monsters = new List<Monsters>();
+            //Character character = new Character();
+            //전투화면
 
             //몬스터 생성 및 몬스터 정보
+            Console.WriteLine("Battle!!");
+            Console.WriteLine();
+            for (int i = 0; i < monsters.Count; i++)
+            {
+                monsters[i].SpawnInfo();
+            }
+            //캐릭터 정보 불러오기
+            Console.WriteLine($"{character.Name}\n{character.Lv} {character.Name} {character.Job}\n HP {character.Hp}");
+
+            Console.WriteLine("1. 공격");
+            Console.WriteLine();
+            Console.WriteLine("원하시는 행동을 입력해주세요");
+            Console.Write(">>");
+
+            int result = Program.CheckInput(1, 1);
+
+            switch (result)
+            {
+                case 1:
+                    BattleCharacterPhase();
+                    break;
+            }
+        }
+        public void BattleCharacterPhase()
+        {
+            //List<Monsters> monsters = new List<Monsters>();
+            //Character character = new Character();
+            //전투화면(캐릭터공격)
+
+            //취소를 누르면 몬스터 공격 턴으로 넘어감.
+            //캐릭터가 공격할 몬스터를 선택하면 공격
+            //몬스터 정보 (타겟숫자표시)
             while (true)
             {
                 Console.WriteLine("Battle!!");
                 Console.WriteLine();
-               
-                foreach (Monsters monster in monsters)
+                for (int i = 0; i < monsters.Count; i++)
                 {
-                    monster.SpawnInfo();
+                    Console.WriteLine($"{i + 1} {monsters[i].Level} {monsters[i].Name} {monsters[i].Hp}");
                 }
-                //캐릭터 정보
+                //캐릭터 정보 불러오기
                 Console.WriteLine($"{character.Name}\n{character.Lv} {character.Name} {character.Job}\n HP {character.Hp}");
 
-                Console.WriteLine("1. 공격");
+                Console.WriteLine("0. 취소");
                 Console.WriteLine();
-                Console.WriteLine("원하시는 행동을 입력해주세요");
+                Console.WriteLine("대상을 선택해 주세요.");
                 Console.Write(">>");
 
-                int result = program.CheckInput(0, 1);
-
+                int result = Program.CheckInput(0, monsters.Count);
                 switch (result)
                 {
                     case 0:
+                        //몬스터 공격 턴으로 넘어감.
+                        BattleEnemyPhase();
                         break;
-                    case 1:
-                        Console.WriteLine();
-                        Console.WriteLine("0. 취소");
-                        Console.WriteLine();
-                        Console.WriteLine("대상을 선택해 주세요.");
-                        Console.Write(">>");
-                        bool input = int.TryParse(Console.ReadLine(), out int choice);
-                        if (!input || choice <0 || choice > monsters.Count)
+                    default:
+                        //몬스터의 체력이 0보다 크면 공격
+                        //몬스터의 체력이 0보다 작으면 공격 불가
+                        int index = result - 1;
+                        Monsters target = monsters[index];
+                        if (target.Hp > 0)
                         {
-                            Console.WriteLine("다시 선택해 주세요.");
+                            CharacterAttack(character, target);
                         }
                         else
                         {
-                            int index = choice - 1;
-                            Monsters target = monsters[index];
-                            
-                            CharacterAttack(character, target);
+                            Console.WriteLine("잘못된 입력입니다.");
+                            continue;
                         }
-                       break;
+                        Console.WriteLine("0. 다음");
+                        Console.ReadLine();
+
+                        break;
                 }
-                
+                bool allMonstersDead = monsters.TrueForAll(monsters => monsters.Hp == 0);
+                if (allMonstersDead)
+                {
+                    BattleResult.Victory();
+                    break;
+                }
+            }
+        }
+        public void BattleEnemyPhase()
+        {
+            //List<Monsters> monsters = new List<Monsters>();
+            //전투화면 (몬스터공격)
+            Console.WriteLine("Battle!!");
+            Console.WriteLine();
+            for (int i = 0; i < monsters.Count; i++)
+            {
+                if (monsters[i].Hp > 0)
+                {
+                    MonsterAttack(monsters[i], character);
+                    Console.WriteLine("0. 다음");
+                    Console.ReadLine();
+                }
+                if (character.Hp <=0 )
+                {
+                    BattleResult.Lose();
+                    break;
+                }
+            }
+
                
 
 
@@ -114,7 +180,7 @@ namespace team17_textRPG
             
             
 
-            Console.WriteLine("1. 공격");
+            
 
 
         }
