@@ -13,7 +13,7 @@ namespace team17_textRPG
         public Random rand = new Random();
         public List<Monsters> monsters;
         public Character character;
-        
+
         public BattleUI(Character character, List<Monsters> monsters)
         {
             this.character = character;
@@ -37,6 +37,7 @@ namespace team17_textRPG
         {
             int errorRangeMA = (int)Math.Ceiling(monster.Atk * 0.1);
             int damage = rand.Next(monster.Atk - errorRangeMA, monster.Atk + errorRangeMA + 1);
+
             
             bool isCritical = rand.Next(0, 100) < 15;
             if (isCritical)
