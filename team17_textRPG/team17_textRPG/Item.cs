@@ -1,29 +1,13 @@
-
-//회복물약UI hpPotion
-//=====완성=====
-
-//화면
-//인벤토리UI
-
-
-//회복물약 기능
-//사냥을 통해 얻을 수 있다.
-//던전 입장전 포션을 사용할 수 있다. - 포션 사용시 메세지 출력 "회복을 완료했습니다", "포션이 부족합니다."
-//포션의 회복량 30
-//최대 체력보다 높게 회복 불가
-//보유포션 표시, 사용시 포션 개수 차감
 namespace team17_textRPG
 {
     
     class Item
     {
-        private static Character player;
         public string Name { get; private set; }
         public int Effect { get; private set; }
         static int hpPotion = 3;
-        public int maxHp = 100;
+        private Character character = new Character();
         Program program = new Program();
-        //Character player = new Character();
         //int currentHP = player.Hp;
 
 
@@ -64,10 +48,10 @@ namespace team17_textRPG
         {
             if (hpPotion > 0)
             {
-                if(Hp < maxHp)
+                if(character.Hp < character.maxHp)
                 {
                     Console.WriteLine("체력이 회복되었습니다.");
-                    Hp = Math.Min(Hp + 30, maxHp); // 둘 중 작은 값 출력;
+                    character.PlusHp(Effect);
                     hpPotion --;
                 }
                 else
@@ -90,9 +74,20 @@ namespace team17_textRPG
                     }
                 }
             }
-
-        public void DisplayInventory()
+        }
+        public void GetHpPotion()
         {
+            Random rand = new Random();
+            int chance = rand.Next(0, 100);
+            if (chance < 5)
+            {   
+                Console.WriteLine($"체력회복포션을 1개 얻었습니다.");
+                hpPotion ++;
+            }
+            else
+            {
+                return;
+            }
 
         }
     }

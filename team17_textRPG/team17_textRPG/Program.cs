@@ -54,7 +54,7 @@ namespace team17_textRPG
             Console.WriteLine("\n1. 상태 보기\n2. 상점\n3. 인벤토리\n4. 전투 시작");
             Console.WriteLine("\n원하시는 행동을 입력해 주세요.");
             Console.Write(">>");
-            result = CheckInput(1, 2);
+            result = CheckInput(1, 4);
             switch (result)
             {
                 case 1:
