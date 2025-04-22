@@ -5,10 +5,10 @@ namespace team17_textRPG
     internal class Monsters
     {
         public string Name;
-
         public int Level;
         public int Atk;
         public int Hp;
+        Item item;
 
         bool isDead = false;
 
@@ -68,6 +68,7 @@ namespace team17_textRPG
             {
                 Console.ForegroundColor = ConsoleColor.DarkGray;
                 Console.WriteLine($" Lv.{Level} {Name} Dead");
+                item.GetHpPotion();
             }
             else
             {

@@ -9,6 +9,7 @@
         public int Atk { get; private set; }
         public int Def { get; private set; }
         public int Hp { get; private set; }
+        public int MaxHp {get; private set;}
         public int Gold { get; private set; }
         public int[] MaxExp { get; private set; }
         public int currentExp { get; private set; }
@@ -16,7 +17,6 @@
         private int extraDef;
         private int[] gearSlot = new int[] { 0, 0, 0 };
         private bool[] isSlotEmpty = new bool[] { true, true, true };
-        public int maxHp = 100;
 
         public Character(string name, int jobCode)
         {
@@ -27,12 +27,14 @@
                 Atk = 10;
                 Def = 5;
                 Hp = 100;
+                MaxHp = 100;
             }
             else
             {
                 Atk = 12;
                 Def = 3;
                 Hp = 80;
+                MaxHp = 80;
             }
             Lv = 1;
             Gold = 1500;
@@ -229,9 +231,9 @@
                 GetExp(currentExp + exp - MaxExp[Lv - 2]);
             }
         }
-        public void PlusHp(int amount)
+        public void HealHp(int amount)
         {
-            Hp = Math.Min(Hp + amount, maxHp);
+            Hp = Math.Min(Hp + amount, MaxHp);
         }
 
         void PlayerGetDamage(int damage)
