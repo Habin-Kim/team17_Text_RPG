@@ -14,6 +14,7 @@ namespace team17_textRPG
         public int Price { get; private set; }
         public int Type { get; private set; }
         public bool isHave { get; set; }
+        public bool isEquipped { get; set; }
 
         public Gears(string name, string desc, int eff, int price, int type)
         {
@@ -23,6 +24,7 @@ namespace team17_textRPG
             Price = price;
             Type = type;
             isHave = false;
+            isEquipped = false;
         }
 
         public static void ShowGears(int showType)
