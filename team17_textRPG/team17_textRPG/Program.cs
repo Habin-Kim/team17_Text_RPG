@@ -1,12 +1,13 @@
-﻿namespace team17_textRPG
+﻿using static System.Formats.Asn1.AsnWriter;
+
+namespace team17_textRPG
 {
     internal class Program
     {
-        private static Character character;
-        private static Gears[] gearDb;
+        public static Character character { get; set; }
+        public static Gears[] gearDb { get; set; }
         static void Main(string[] args)
         {
-
             CreateCharacter();
             LoadGear();
             StartScene();
@@ -44,7 +45,7 @@
                 new Gears("강철갑옷","강철로 만든 갑옷", 10, 2000, 3)
             };
         }
-        static void StartScene()
+        public static void StartScene()
         {
             int result;
             Console.Clear();
@@ -61,10 +62,10 @@
                     ShowStats();
                     break;
                 case 2:
-                    ShowStore();
+                    Store.ShowStore();
                     break;
                 case 3:
-                    //character.ShowInv();
+                    character.ShowInv();
                     break;
                 case 4:
                     //전투시작
@@ -82,35 +83,6 @@
                 case 0:
                     StartScene();
                     break;
-            }
-        }
-        static void ShowStore()
-        {
-            int gearCount = gearDb.Count();
-            int typeBefore = 0;
-            string eff;
-            Console.Clear();
-            Console.WriteLine("\n상점\n");
-            for (int i = 0; i < gearCount; i++)
-            {
-                if (typeBefore != gearDb[i].Type)
-                {
-                    switch (gearDb[i].Type)
-                    {
-                        case 1:
-                            Console.WriteLine("[검]");
-                            break;
-                        case 2:
-                            Console.WriteLine("[방패]");
-                            break;
-                        default:
-                            Console.WriteLine("[갑옷]");
-                            break;
-                    }
-                    eff = gearDb[i].Type == 1 ? "공격력" : "방어력";
-                    Console.WriteLine($"- {gearDb[i].Name}  | {eff}+{gearDb[i].Effect}  | {gearDb[i].Desc}  | {gearDb[i].Price}");
-                    typeBefore = gearDb[i].Type;
-                }
             }
         }
 
