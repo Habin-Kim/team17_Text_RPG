@@ -82,7 +82,7 @@ namespace team17_textRPG
             }
             else
             {
-                Console.WriteLine($"Lv.{monster.Level} {monster.Name} 을(를) 맞췄습니다. [데미지 : {damage}]{(isCritical ? "치명타 공격!!" : "")}");
+                Console.WriteLine($"Lv.{monster.Level} {monster.Name} 을(를) 맞췄습니다. [데미지 : {damage}] {(isCritical ? "치명타 공격!!" : "")}");
                 Console.WriteLine($"\nLv.{monster.Level} {monster.Name}\nHP {originalHp} -> {monster.Hp}");
             }
         }
