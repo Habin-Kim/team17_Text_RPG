@@ -68,7 +68,8 @@ namespace team17_textRPG
                     character.ShowInv();
                     break;
                 case 4:
-                    //전투시작
+                    BattleUI battleUI = new BattleUI();
+                    battleUI.BattleStart();
                     break;
             }
         }
