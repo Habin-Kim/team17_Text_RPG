@@ -169,7 +169,7 @@ namespace team17_textRPG
                         Console.WriteLine();
                         Console.WriteLine("0. 다음");
                         Console.Write(">>");
-                        //Console.ReadLine();
+                        Console.ReadLine();
 
                         break;
                 }
@@ -202,7 +202,7 @@ namespace team17_textRPG
                         Console.WriteLine();
                         Console.WriteLine("0. 다음");
                         Console.Write(">>");
-                        //Console.ReadLine();
+                        Console.ReadLine();
                     }
                     //if (character.Hp <= 0)
                     //{
