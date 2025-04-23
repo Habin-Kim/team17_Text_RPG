@@ -64,7 +64,7 @@ namespace team17_textRPG
             //character.Hp -= damage;
             //if (character.Hp < 0) character.Hp = 0;
             Console.WriteLine($"Lv.{character.Lv} {character.Name} 을(를) 맞췄습니다.  [데미지 : {damage}] {(isCritical? "치명타 공격!!" :"")}");
-            character.PlayerGetDamage(damage);
+            character.PlayerGetDamage(damage, isCritical = false);
             //Console.WriteLine($"\nLv.{character.Lv} {character.Name}\nHP {originalHp} -> {character.Hp}");
 
         }
@@ -168,8 +168,8 @@ namespace team17_textRPG
                         }
                         Console.WriteLine();
                         Console.WriteLine("0. 다음");
-                        Console.WriteLine(">>");
-                        Console.ReadLine();
+                        Console.Write(">>");
+                        //Console.ReadLine();
 
                         break;
                 }
@@ -201,15 +201,15 @@ namespace team17_textRPG
                         MonsterAttack(monsters[i], character);
                         Console.WriteLine();
                         Console.WriteLine("0. 다음");
-                        Console.WriteLine(">>");
-                        Console.ReadLine();
+                        Console.Write(">>");
+                        //Console.ReadLine();
                     }
-                    if (character.Hp <= 0)
-                    {
-                        BattleResult battleResult = new BattleResult();
-                        battleResult.Lose();
-                        break;
-                    }
+                    //if (character.Hp <= 0)
+                    //{
+                    //    BattleResult battleResult = new BattleResult();
+                    //    battleResult.Lose();
+                    //    break;
+                    //}
                 }
             BattleCharacterPhase();
             }
