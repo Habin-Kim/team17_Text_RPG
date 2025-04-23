@@ -68,8 +68,6 @@ namespace team17_textRPG
             {
                 Console.ForegroundColor = ConsoleColor.DarkGray;
                 Console.WriteLine($"Lv.{Level} {Name} Dead");
-                item.GetHpPotion();
-
             }
             else
             {
