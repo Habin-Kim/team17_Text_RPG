@@ -11,6 +11,7 @@ namespace team17_textRPG
         Item item;
 
         bool isDead = false;
+        public static int deadMonsterCount;
 
         // 몬스터 레벨에 따라서 스탯 정해짐
         public Monsters(string name, int level, int atk, int hp)
