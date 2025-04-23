@@ -16,10 +16,10 @@
             Console.WriteLine("\nVictory");
             Console.ResetColor();
 
-            Console.WriteLine($"\n던전에서 몬스터 {Monsters.monster}마리를 잡았습니다.");
+            //Console.WriteLine($"\n던전에서 몬스터 {Monsters.monster}마리를 잡았습니다.");
 
             Console.WriteLine($"Lv. {Program.character.Lv:D2} {Program.character.Name}");
-            Console.WriteLine($"HP {MaxHp} -> {ResultHp}");
+            //Console.WriteLine($"HP {MaxHp} -> {ResultHp}");
 
             Console.WriteLine("0. 다음");
             Console.Write(">> ");
@@ -45,7 +45,7 @@
             Console.ResetColor();
 
             Console.WriteLine($"Lv. {Program.character.Lv:D2} {Program.character.Name}");
-            Console.WriteLine($"HP {MaxHp} -> {ResultHp}");
+            //Console.WriteLine($"HP {MaxHp} -> {ResultHp}");
 
             Console.WriteLine("0. 다음");
             Console.Write(">> ");

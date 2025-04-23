@@ -234,11 +234,17 @@
             Hp = Math.Min(Hp + amount, maxHp);
         }
 
-        void PlayerGetDamage(int damage)
+        public void PlayerGetDamage(int damage)
         {
+            Hp -= damage;
             Console.WriteLine($"Lv.{Lv} {Name}");
             Console.WriteLine($"Hp {Hp} -> {Hp - damage}");
-            Hp -= damage;
+            
+            if (Hp < 0)
+            {
+                Hp = 0;
+            }
+            
         }
     }
 }

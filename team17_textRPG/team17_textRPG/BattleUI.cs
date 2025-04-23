@@ -60,11 +60,12 @@ namespace team17_textRPG
         public void ApplyDamage(Character character, int damage, bool isCritical = false)
         {
             
-            int originalHp = character.Hp;
+            //int originalHp = character.Hp;
             //character.Hp -= damage;
             //if (character.Hp < 0) character.Hp = 0;
             Console.WriteLine($"Lv.{character.Lv} {character.Name} 을(를) 맞췄습니다.  [데미지 : {damage}] {(isCritical? "치명타 공격!!" :"")}");
-            Console.WriteLine($"\nLv.{character.Lv} {character.Name}\nHP {originalHp} -> {character.Hp}");
+            character.PlayerGetDamage(damage);
+            //Console.WriteLine($"\nLv.{character.Lv} {character.Name}\nHP {originalHp} -> {character.Hp}");
 
         }
 
@@ -102,7 +103,7 @@ namespace team17_textRPG
             //캐릭터 정보 불러오기
             Console.WriteLine();
             Console.WriteLine("[내정보]");
-            Console.WriteLine($"Lv.{character.Lv} {character.Name} ({character.Job})\nHP {character.Hp}");
+            Console.WriteLine($"Lv.{character.Lv} {character.Name} ({character.Job})\nHP {character.Hp}"); //캐릭터 클래스의 Hp는 변하지 않음. 
             Console.WriteLine();
             Console.WriteLine("1. 공격");
             Console.WriteLine();
@@ -175,7 +176,8 @@ namespace team17_textRPG
                 bool allMonstersDead = monsters.TrueForAll(monsters => monsters.Hp <= 0);
                 if (allMonstersDead)
                 {
-                    BattleResult.Victory();
+                    BattleResult battleResult = new BattleResult();
+                    battleResult.Victory();
                     break;
                 }
                 BattleEnemyPhase();
@@ -204,7 +206,8 @@ namespace team17_textRPG
                     }
                     if (character.Hp <= 0)
                     {
-                        //BattleResult.Lose();
+                        BattleResult battleResult = new BattleResult();
+                        battleResult.Lose();
                         break;
                     }
                 }
