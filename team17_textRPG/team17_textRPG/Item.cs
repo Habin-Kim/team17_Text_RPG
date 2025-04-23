@@ -6,18 +6,14 @@ namespace team17_textRPG
         public string Name { get; private set; }
         public int Effect { get; private set; }
         static int hpPotion = 3;
-        //private Character character = new Character();
-        Program program = new Program();
-        //int currentHP = player.Hp;
 
-
-    
         public Item()
         {
             Name = "체력회복포션";
             Effect = 30;
         }
 
+        //회복 UI
         public void DisplayHealUI()
         {
             Console.Clear();
@@ -35,31 +31,58 @@ namespace team17_textRPG
             switch(result)
             {
                 case 0:
-                {
-                    break;;
-                }
+                    // battelui.BattleStart();
+                    break;
                 case 1:
                     UseHpPotion();
                     break;
             }
-        }
+        }   
 
+        // 체력회복포션 사용
         public void UseHpPotion()
-        {
+        {   
             if (hpPotion > 0)
             {
-                if(Program.character.Hp < Program.character.maxHp)
-                {
+                //현재 체력이 최대 체력보다 적을 때 -> 포션사용
+                if(Program.character.Hp < Program.character.MaxHp) 
+                {   
+                    Console.Clear();
                     Console.WriteLine("체력이 회복되었습니다.");
-                    Program.character.PlusHp(Effect);
+                    Program.character.HealHp(Effect);
+                    Console.WriteLine($"현재체력 : {Program.character.Hp}");
                     hpPotion --;
+                    Console.WriteLine();
+                    Console.WriteLine("1. 또 사용하기");
+                    Console.WriteLine("0. 나가기");
+
+                    int result = Program.CheckInput(0,1);
+
+                    switch(result)
+                    {
+                        case 1:
+                            UseHpPotion();
+                            break;
+                        case 0:
+                            DisplayHealUI();
+                            break;
+                    }
                 }
                 else
-                {
-                    Console.WriteLine("체력을 회복할 수 없습니다.");
+                {   //현재 체력이 최대 체력일 때 -> 포션 사용 불가
+                    Console.WriteLine("최대 체력입니다. 체력을 회복할 수 없습니다."); 
+                    Console.WriteLine();
+                    Console.WriteLine("0. 나가기");
+                    int result = Program.CheckInput(0,0);
+                    switch(result)
+                    {
+                        case 0:
+                            Program.StartScene();
+                            break;
+                    }
                 }
             }
-            else
+            else // hpPotion (포션 갯수) <= 0
             {
                 Console.WriteLine("포션이 부족합니다.");
                 Console.WriteLine();
@@ -69,19 +92,19 @@ namespace team17_textRPG
                 switch(result)
                 {
                     case 0:
-                    {
+                        Program.StartScene();
                         break;
-                    }
                 }
             }
         }
+        // 몬스터 사냥시 체력회복포션 획득      
         public void GetHpPotion()
         {
             Random rand = new Random();
             int chance = rand.Next(0, 100);
-            if (chance < 5)
+            if (chance < 5) // 5% 확률
             {   
-                Console.WriteLine($"체력회복포션을 1개 얻었습니다.");
+                Console.WriteLine("체력회복포션을 1개 얻었습니다.");
                 hpPotion ++;
             }
             else
@@ -90,6 +113,6 @@ namespace team17_textRPG
             }
 
         }
-    }
+    }        
 }
 
