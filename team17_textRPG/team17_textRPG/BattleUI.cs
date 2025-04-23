@@ -205,12 +205,12 @@ namespace team17_textRPG
                         Console.WriteLine("0. 다음");
                         Console.Write(">>");
                         Console.ReadLine();
-                        if (character.Hp <= 0)
-                        {
+                    if (character.Hp <= 0)
+                    {
                         BattleResult battleResult = new BattleResult();
                         battleResult.Lose();
                         return;
-                        }
+                    }
 
                     }
                 }
