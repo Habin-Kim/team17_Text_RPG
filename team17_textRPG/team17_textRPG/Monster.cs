@@ -8,8 +8,7 @@ namespace team17_textRPG
         public int Level;
         public int Atk;
         public int Hp;
-        Item item;
-
+        Item item = new Item();
         bool isDead = false;
         public static int deadMonsterCount;
 
@@ -59,21 +58,22 @@ namespace team17_textRPG
         // 몬스터 등장 및 정보
         public void SpawnInfo()
         {
-            Console.WriteLine($" Lv.{Level} {Name} 등장!!");
+            Console.WriteLine($"Lv.{Level} {Name} 등장!!");
         }
 
         // 전투 시 출력 될 몬스터 정보
         public void BattleInfo()
         {
-            if (isDead)
+            if (Hp<=0)
             {
                 Console.ForegroundColor = ConsoleColor.DarkGray;
-                Console.WriteLine($" Lv.{Level} {Name} Dead");
+                Console.WriteLine($"Lv.{Level} {Name} Dead");
                 item.GetHpPotion();
+
             }
             else
             {
-                Console.WriteLine($" Lv.{Level} {Name}  HP: {Hp}");
+                Console.WriteLine($"Lv.{Level} {Name}  HP: {Hp}");
             }
             Console.ResetColor();
         }
@@ -90,8 +90,6 @@ namespace team17_textRPG
                 Console.WriteLine($"HP {Hp} -> Dead");
             }
         }
-
-        // 몬스터 공격
         public void Attack()
         {
             if (!isDead)

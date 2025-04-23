@@ -14,6 +14,7 @@ namespace team17_textRPG
         public List<Monsters> monsters = new List<Monsters>();
         public Character character;
         Item item = new Item();
+
         
 
         public BattleUI()
@@ -60,11 +61,8 @@ namespace team17_textRPG
         }
         public void ApplyDamage(Character character, int damage, bool isCritical = false)
         {
-            
-            //int originalHp = character.Hp;
-            //character.Hp -= damage;
-            //if (character.Hp < 0) character.Hp = 0;
-            Console.WriteLine($"Lv.{character.Lv} {character.Name} 을(를) 맞췄습니다.  [데미지 : {damage}] {(isCritical? "치명타 공격!!" :"")}");
+
+            Console.WriteLine($"Lv.{character.Lv} {character.Name} 을(를) 맞췄습니다. [데미지 : {damage}] {(isCritical? "- 치명타 공격!!" :"")}");
             character.PlayerGetDamage(damage, isCritical = false);
             //Console.WriteLine($"\nLv.{character.Lv} {character.Name}\nHP {originalHp} -> {character.Hp}");
 
@@ -79,14 +77,14 @@ namespace team17_textRPG
             {
                 
                 monster.Hp = 0;
-                Console.WriteLine($"Lv.{monster.Level} {monster.Name} 을(를) 맞췄습니다. [데미지 : {damage}] {(isCritical ? "치명타 공격!!" : "")}");
+                Console.WriteLine($"Lv.{monster.Level} {monster.Name} 을(를) 맞췄습니다. [데미지 : {damage}] {(isCritical ? "- 치명타 공격!!" : "")}");
                 Console.WriteLine($"\nLv.{monster.Level} {monster.Name}\nHP {originalHp} -> Dead");
                 Monsters.deadMonsterCount++;
                 item.GetHpPotion();
             }
             else
             {
-                Console.WriteLine($"Lv.{monster.Level} {monster.Name} 을(를) 맞췄습니다. [데미지 : {damage}] {(isCritical ? "치명타 공격!!" : "")}");
+                Console.WriteLine($"Lv.{monster.Level} {monster.Name} 을(를) 맞췄습니다. [데미지 : {damage}] {(isCritical ? "- 치명타 공격!!" : "")}");
                 Console.WriteLine($"\nLv.{monster.Level} {monster.Name}\nHP {originalHp} -> {monster.Hp}");
             }
         }
@@ -136,7 +134,8 @@ namespace team17_textRPG
                 Console.WriteLine();
                 for (int i = 0; i < monsters.Count; i++)
                 {
-                    Console.WriteLine($"{i + 1}. Lv.{monsters[i].Level} {monsters[i].Name} HP {monsters[i].Hp}");
+                    monsters[(int)i].BattleInfo();
+                    //Console.WriteLine($"{i + 1}. Lv.{monsters[i].Level} {monsters[i].Name} HP {monsters[i].Hp}");
                 }
                 //캐릭터 정보 불러오기
                 Console.WriteLine();
@@ -207,12 +206,12 @@ namespace team17_textRPG
                         Console.Write(">>");
                         Console.ReadLine();
                     }
-                    //if (character.Hp <= 0)
-                    //{
-                    //    BattleResult battleResult = new BattleResult();
-                    //    battleResult.Lose();
-                    //    break;
-                    //}
+                    if (character.Hp <= 0)
+                    {
+                       BattleResult battleResult = new BattleResult();
+                        battleResult.Lose();
+                        break;
+                    }
                 }
             BattleCharacterPhase();
             }
