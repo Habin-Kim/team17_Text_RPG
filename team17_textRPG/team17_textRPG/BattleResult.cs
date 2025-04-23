@@ -4,7 +4,6 @@
     // 전투 결과
     public class BattleResult
     {
-
         // 이기면 빅토리 뜨고 체력 띄우기
         public void Victory()
         {
@@ -16,7 +15,10 @@
             Console.ResetColor();
             Console.WriteLine();
             Console.WriteLine($"\n던전에서 몬스터 {Monsters.deadMonsterCount}마리를 잡았습니다.");
-
+            Console.WriteLine($"\n던전에서 체력회복포션 {Item.getPotionCount} 개를 얻었습니다.");
+            Console.WriteLine();
+            Monsters.deadMonsterCount = 0;
+            Item.getPotionCount = 0;
             Console.WriteLine($"Lv. {Program.character.Lv:D2} {Program.character.Name}");
             Console.WriteLine($"HP {Program.character.MaxHp} -> {Program.character.Hp}");
 

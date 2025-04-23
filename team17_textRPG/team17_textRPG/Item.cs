@@ -5,7 +5,8 @@ namespace team17_textRPG
     {
         public string Name { get; private set; }
         public int Effect { get; private set; }
-        static int hpPotion = 3;
+        public static int hpPotion = 3;
+        public static int getPotionCount = 0;
 
         public Item()
         {
@@ -31,7 +32,7 @@ namespace team17_textRPG
             switch(result)
             {
                 case 0:
-                    // battelui.BattleStart();
+                    Program.StartScene();
                     break;
                 case 1:
                     UseHpPotion();
@@ -64,7 +65,7 @@ namespace team17_textRPG
                             UseHpPotion();
                             break;
                         case 0:
-                            DisplayHealUI();
+                            Program.StartScene();
                             break;
                     }
                 }
@@ -102,10 +103,11 @@ namespace team17_textRPG
         {
             Random rand = new Random();
             int chance = rand.Next(0, 100);
-            if (chance < 5) // 5% 확률
+            if (chance < 50) // 50% 확률
             {   
                 Console.WriteLine("체력회복포션을 1개 얻었습니다.");
                 hpPotion ++;
+                getPotionCount ++;
             }
             else
             {
