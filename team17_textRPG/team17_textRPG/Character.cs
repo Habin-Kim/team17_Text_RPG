@@ -242,5 +242,10 @@
             Console.WriteLine($"Hp {Hp} -> {Hp - damage}");
             Hp -= damage;
         }
+
+        public void PlayerRevive()
+        {
+            Hp = MaxHp;
+        }
     }
 }
