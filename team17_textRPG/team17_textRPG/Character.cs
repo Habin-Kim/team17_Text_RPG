@@ -10,6 +10,7 @@
         public int Def { get; private set; }
         public int Hp { get; private set; }
         public int MaxHp {get; private set;}
+        public int beforeHp{get; private set;}
         public int Gold { get; private set; }
         public int[] MaxExp { get; private set; }
         public int currentExp { get; private set; }
@@ -247,6 +248,11 @@
                 Hp = 0;
             }
             
+        }
+        public void DecreaseHP(int damage)
+        {
+            beforeHp = Hp;
+            Hp -= damage;
         }
 
         public void PlayerRevive()
