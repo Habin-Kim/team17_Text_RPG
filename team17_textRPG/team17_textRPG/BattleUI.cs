@@ -13,7 +13,7 @@ namespace team17_textRPG
         public Random rand = new Random();
         public List<Monsters> monsters = new List<Monsters>();
         public Character character;
-        Item item;
+        Item item = new Item();
         
 
         public BattleUI()
@@ -32,7 +32,7 @@ namespace team17_textRPG
             int damage = rand.Next(character.Atk - errorRangeCA, character.Atk + errorRangeCA + 1);
 
             bool isCritical = rand.Next(0, 100) < 15;
-            if(isCritical)
+            if (isCritical)
             {
                 damage = (int)Math.Ceiling(damage * 1.6f);
             }
@@ -69,15 +69,15 @@ namespace team17_textRPG
 
         public void ApplyDamage(Monsters monster, int damage, bool isCritical = false)
         {
-            
+
             int originalHp = monster.Hp;
             monster.Hp -= damage;
             if (monster.Hp <= 0)
             {
-                
                 monster.Hp = 0;
                 Console.WriteLine($"Lv.{monster.Level} {monster.Name} 을(를) 맞췄습니다. [데미지 : {damage}] {(isCritical ? "- 치명타 공격!!" : "")}");
                 Console.WriteLine($"\nLv.{monster.Level} {monster.Name}\nHP {originalHp} -> Dead");
+                item.GetHpPotion();
             }
             else
             {
@@ -89,9 +89,13 @@ namespace team17_textRPG
         public void BattleStart()
         {
             Console.Clear();
-            //전투화면
+            
+            //if (character.Hp != character.MaxHp)
+            //{
+            //    item.DisplayHealUI();
+            //}
 
-            //몬스터 생성 및 몬스터 정보
+                //몬스터 생성 및 몬스터 정보
             Console.WriteLine("Battle!!");
             Console.WriteLine();
             for (int i = 0; i < monsters.Count; i++)
@@ -101,14 +105,14 @@ namespace team17_textRPG
             //캐릭터 정보 불러오기
             Console.WriteLine();
             Console.WriteLine("[내정보]");
-            Console.WriteLine($"Lv.{character.Lv} {character.Name} ({character.Job})\nHP {character.Hp}"); //캐릭터 클래스의 Hp는 변하지 않음. 
+            Console.WriteLine($"Lv.{character.Lv} {character.Name} ({character.Job})\nHP {character.Hp}");  
             Console.WriteLine();
             Console.WriteLine("1. 공격");
             Console.WriteLine();
             Console.WriteLine("대상을 선택해 주세요.");
             Console.Write(">>");
 
-            int result = Program.CheckInput(1, 1);
+            int result = Program.CheckInput(1,1);
 
             switch (result)
             {
@@ -125,25 +129,27 @@ namespace team17_textRPG
             //취소를 누르면 몬스터 공격 턴으로 넘어감.
             //캐릭터가 공격할 몬스터를 선택하면 공격
             //몬스터 정보 (타겟숫자표시)
+            Console.WriteLine("Battle!!");
+            Console.WriteLine();
+            for (int i = 0; i < monsters.Count; i++)
+            {
+
+                Console.Write($"{i + 1}. ");
+                monsters[i].BattleInfo();
+                //Console.WriteLine($"{i + 1}. Lv.{monsters[i].Level} {monsters[i].Name} HP {monsters[i].Hp}");
+            }
+            //캐릭터 정보 불러오기
+            Console.WriteLine();
+            Console.WriteLine("[내정보]");
+            Console.WriteLine($"Lv.{character.Lv} {character.Name} ({character.Job})\nHP {character.Hp}");
+            Console.WriteLine();
+            Console.WriteLine("0. 취소");
+            Console.WriteLine();
+            Console.WriteLine("대상을 선택해 주세요.");
+            Console.Write(">>");
+
             while (true)
             {
-                Console.WriteLine("Battle!!");
-                Console.WriteLine();
-                for (int i = 0; i < monsters.Count; i++)
-                {
-                    monsters[(int)i].BattleInfo();
-                    //Console.WriteLine($"{i + 1}. Lv.{monsters[i].Level} {monsters[i].Name} HP {monsters[i].Hp}");
-                }
-                //캐릭터 정보 불러오기
-                Console.WriteLine();
-                Console.WriteLine("[내정보]");
-                Console.WriteLine($"Lv.{character.Lv} {character.Name} ({character.Job})\nHP {character.Hp}");
-                Console.WriteLine();
-                Console.WriteLine("0. 취소");
-                Console.WriteLine();
-                Console.WriteLine("대상을 선택해 주세요.");
-                Console.Write(">>");
-
                 int result = Program.CheckInput(0, monsters.Count);
                 switch (result)
                 {
@@ -162,14 +168,13 @@ namespace team17_textRPG
                         }
                         else
                         {
-                            Console.WriteLine("잘못된 입력입니다.");
+                            Console.WriteLine("이미 죽은 몬스터 입니다.");
                             continue;
                         }
                         Console.WriteLine();
                         Console.WriteLine("0. 다음");
                         Console.Write(">>");
-                        Console.ReadLine();
-
+                        int input = Program.CheckInput(0, 0);
                         break;
                 }
                 bool allMonstersDead = monsters.TrueForAll(monsters => monsters.Hp <= 0);
@@ -182,6 +187,7 @@ namespace team17_textRPG
                 BattleEnemyPhase();
             }
         }
+
         public void BattleEnemyPhase()
         {
             Console.Clear();
@@ -201,13 +207,13 @@ namespace team17_textRPG
                         Console.WriteLine();
                         Console.WriteLine("0. 다음");
                         Console.Write(">>");
-                        Console.ReadLine();
+                        int result = Program.CheckInput(0,0);
                     }
                     if (character.Hp <= 0)
                     {
                        BattleResult battleResult = new BattleResult();
-                        battleResult.Lose();
-                        break;
+                       battleResult.Lose();
+                       break;
                     }
                 }
             BattleCharacterPhase();
