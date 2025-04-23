@@ -6,7 +6,6 @@ namespace team17_textRPG
         public string Name { get; private set; }
         public int Effect { get; private set; }
         static int hpPotion = 3;
-        Program program = new Program();
 
         public Item()
         {
@@ -32,15 +31,11 @@ namespace team17_textRPG
             switch(result)
             {
                 case 0:
-                {   
                     // battelui.BattleStart();
                     break;
-                }
                 case 1:
-                {
                     UseHpPotion();
                     break;
-                }
             }
         }   
 
@@ -49,8 +44,8 @@ namespace team17_textRPG
         {   
             if (hpPotion > 0)
             {
-
-                if(Program.character.Hp < Program.character.MaxHp)
+                //현재 체력이 최대 체력보다 적을 때 -> 포션사용
+                if(Program.character.Hp < Program.character.MaxHp) 
                 {   
                     Console.Clear();
                     Console.WriteLine("체력이 회복되었습니다.");
@@ -66,34 +61,28 @@ namespace team17_textRPG
                     switch(result)
                     {
                         case 1:
-                        {
                             UseHpPotion();
                             break;
-                        }
                         case 0:
-                        {   
                             DisplayHealUI();
                             break;
-                        }
                     }
                 }
                 else
-                {
-                    Console.WriteLine("최대 체력입니다. 체력을 회복할 수 없습니다.");
+                {   //현재 체력이 최대 체력일 때 -> 포션 사용 불가
+                    Console.WriteLine("최대 체력입니다. 체력을 회복할 수 없습니다."); 
                     Console.WriteLine();
                     Console.WriteLine("0. 나가기");
                     int result = Program.CheckInput(0,0);
                     switch(result)
                     {
                         case 0:
-                        {
                             Program.StartScene();
                             break;
-                        }
                     }
                 }
             }
-            else
+            else // hpPotion (포션 갯수) <= 0
             {
                 Console.WriteLine("포션이 부족합니다.");
                 Console.WriteLine();
@@ -103,10 +92,8 @@ namespace team17_textRPG
                 switch(result)
                 {
                     case 0:
-                    {
                         Program.StartScene();
                         break;
-                    }
                 }
             }
         }
@@ -117,7 +104,7 @@ namespace team17_textRPG
             int chance = rand.Next(0, 100);
             if (chance < 5) // 5% 확률
             {   
-                Console.WriteLine($"체력회복포션을 1개 얻었습니다.");
+                Console.WriteLine("체력회복포션을 1개 얻었습니다.");
                 hpPotion ++;
             }
             else
