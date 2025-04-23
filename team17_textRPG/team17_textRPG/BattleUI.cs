@@ -13,7 +13,8 @@ namespace team17_textRPG
         public Random rand = new Random();
         public List<Monsters> monsters = new List<Monsters>();
         public Character character;
-        Item item;
+        Item item = new Item();
+
         
 
         public BattleUI()
@@ -79,6 +80,7 @@ namespace team17_textRPG
                 Console.WriteLine($"Lv.{monster.Level} {monster.Name} 을(를) 맞췄습니다. [데미지 : {damage}] {(isCritical ? "- 치명타 공격!!" : "")}");
                 Console.WriteLine($"\nLv.{monster.Level} {monster.Name}\nHP {originalHp} -> Dead");
                 Monsters.deadMonsterCount++;
+                item.GetHpPotion();
             }
             else
             {
