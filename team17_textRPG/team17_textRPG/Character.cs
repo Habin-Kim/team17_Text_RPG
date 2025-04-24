@@ -25,7 +25,7 @@ namespace team17_textRPG
         public int currentExp { get; private set; }
         private int extraAtk;
         private int extraDef;
-        private int[] gearSlot = new int[] { 0, 0, 0 };
+        private int[] gearSlot = new int[] { -1, -1, -1 };
         private bool[] isSlotEmpty = new bool[] { true, true, true };
         public int totalAtk => extraAtk + Atk;
         public int totalDef => extraDef + Def;
