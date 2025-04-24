@@ -25,7 +25,7 @@ namespace team17_textRPG
         public int currentExp { get; private set; }
         private int extraAtk;
         private int extraDef;
-        private int[] gearSlot = new int[] { 0, 0, 0 };
+        private int[] gearSlot = new int[] { -1, -1, -1 };
         private bool[] isSlotEmpty = new bool[] { true, true, true };
         public int totalAtk => extraAtk + Atk;
         public int totalDef => extraDef + Def;
@@ -183,8 +183,10 @@ namespace team17_textRPG
                         {
                             if (gearSlot[0] != -1)
                             {
+                                extraAtk -= InventoryGears[gearSlot[0]].Effect;
                                 InventoryGears[gearSlot[0]].isEquipped = false;
                                 EquippedGears.Remove(InventoryGears[gearSlot[0]]);
+                                EquippedGears.Remove(EquippedGears[0]);
                             }
                             extraAtk += gear.Effect;
                             gearSlot[0] = iNum;
@@ -193,6 +195,7 @@ namespace team17_textRPG
                         {
                             if (gearSlot[1] != -1)
                             {
+                                extraDef -= InventoryGears[gearSlot[1]].Effect;
                                 InventoryGears[gearSlot[1]].isEquipped = false;
                                 EquippedGears.Remove(InventoryGears[gearSlot[1]]);
                             }
@@ -203,6 +206,7 @@ namespace team17_textRPG
                         {
                             if (gearSlot[2] != -1)
                             {
+                                extraDef -= InventoryGears[gearSlot[2]].Effect;
                                 InventoryGears[gearSlot[2]].isEquipped = false;
                                 EquippedGears.Remove(InventoryGears[gearSlot[2]]);
                             }
