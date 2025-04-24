@@ -46,7 +46,7 @@
             Console.ResetColor();
 
             Console.WriteLine($"Lv. {Program.character.Lv:D2} {Program.character.Name}");
-            //Console.WriteLine($"HP {MaxHp} -> {ResultHp}");
+            Console.WriteLine($"HP {Program.character.MaxHp} -> {Program.character.Hp}");
 
             Console.WriteLine("0. 다음");
             Console.Write(">> ");
