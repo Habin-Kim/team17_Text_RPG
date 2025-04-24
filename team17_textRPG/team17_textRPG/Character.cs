@@ -1,8 +1,11 @@
-﻿using System.Collections;
+
+using System.Collections;
 using System.Globalization;
 using System.Linq.Expressions;
 using System.Net;
 using System.Runtime.CompilerServices;
+using static System.Net.Mime.MediaTypeNames;
+
 
 namespace team17_textRPG
 {
@@ -24,7 +27,8 @@ namespace team17_textRPG
         private int extraDef;
         private int[] gearSlot = new int[] { 0, 0, 0 };
         private bool[] isSlotEmpty = new bool[] { true, true, true };
-
+        public int totalAtk => extraAtk + Atk;
+        public int totalDef => extraDef + Def;
         public Character(string name, int jobCode)
         {
             Name = name;
@@ -243,23 +247,30 @@ namespace team17_textRPG
             Hp = Math.Min(Hp + amount, MaxHp);
         }
 
-        public void PlayerGetDamage(int damage,bool isCritical)
+        public void PlayerGetDamage(int damage, bool isCritical)
         {
+            int decreasDamage = (int)Math.Round(damage - (totalDef) * 0.6f);
+
+            if (decreasDamage <= 0)
+            {
+                decreasDamage = 1;
+            }
+
             int originalHp = Hp;
-            Hp = originalHp-damage;
-            Console.WriteLine($"\nLv.{Lv} {Name}");
-            Console.WriteLine($"Hp {originalHp} -> {Hp}");
+            Hp = originalHp-decreasDamage;
             
             if (Hp < 0)
             {
                 Hp = 0;
             }
+
         }
         public void DecreaseHP(int damage)
         {
             beforeHp = Hp;
             Hp -= damage;
         }
+      
         public void PlayerRevive()
         {
             Hp = MaxHp;
