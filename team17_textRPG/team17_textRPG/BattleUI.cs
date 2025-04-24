@@ -62,8 +62,8 @@ namespace team17_textRPG
         {
 
             Console.WriteLine($"Lv.{character.Lv} {character.Name} 을(를) 맞췄습니다. [데미지 : {damage}] {(isCritical? "- 치명타 공격!!" :"")}");
-            character.PlayerGetDamage(damage, isCritical = false);
-            //Console.WriteLine($"\nLv.{character.Lv} {character.Name}\nHP {originalHp} -> {character.Hp}");
+            character.DecreaseHP(damage);
+            Console.WriteLine($"\nLv.{character.Lv} {character.Name}\nHP {character.beforeHp} -> {character.Hp}");
 
         }
 
@@ -210,6 +210,7 @@ namespace team17_textRPG
                         Console.WriteLine();
                         Console.WriteLine("0. 다음");
                         Console.Write(">>");
+
                         int result = Program.CheckInput(0,0);
                     }
                     if (character.Hp <= 0)
@@ -217,6 +218,7 @@ namespace team17_textRPG
                        BattleResult battleResult = new BattleResult();
                        battleResult.Lose();
                        break;
+
                     }
                 }
             BattleCharacterPhase();
