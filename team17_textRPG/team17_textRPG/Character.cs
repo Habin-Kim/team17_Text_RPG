@@ -255,6 +255,11 @@ namespace team17_textRPG
                 Hp = 0;
             }
         }
+        public void DecreaseHP(int damage)
+        {
+            beforeHp = Hp;
+            Hp -= damage;
+        }
         public void PlayerRevive()
         {
             Hp = MaxHp;
