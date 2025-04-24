@@ -78,7 +78,8 @@ namespace team17_textRPG
                 monster.Hp = 0;
                 Console.WriteLine($"Lv.{monster.Level} {monster.Name} 을(를) 맞췄습니다. [데미지 : {damage}] {(isCritical ? "- 치명타 공격!!" : "")}");
                 Console.WriteLine($"\nLv.{monster.Level} {monster.Name}\nHP {originalHp} -> Dead");
-
+                Console.WriteLine($"경험치 {monster.Exp}를 얻었습니다.");
+                Character.GetExp(monster.Exp);
                 Monsters.deadMonsterCount++;
                 item.GetHpPotion();
 
@@ -109,7 +110,8 @@ namespace team17_textRPG
             //캐릭터 정보 불러오기
             Console.WriteLine();
             Console.WriteLine("[내정보]");
-            Console.WriteLine($"Lv.{Program.character.Lv} {Program.character.Name} ({Program.character.Job})\nHP {Program.character.Hp}");  
+            Console.WriteLine($"Lv.{Program.character.Lv} {Program.character.Name} ({Program.character.Job})\nHP {Program.character.Hp}");
+            Console.WriteLine($"Exp.{Program.character.currentExp}/{(Program.character.Lv < 5 ? Program.character.MaxExp[Program.character.Lv - 1] : "000")}");
             Console.WriteLine();
             Console.WriteLine("1. 공격");
             Console.WriteLine();
@@ -146,6 +148,7 @@ namespace team17_textRPG
             Console.WriteLine();
             Console.WriteLine("[내정보]");
             Console.WriteLine($"Lv.{Program.character.Lv} {Program.character.Name} ({Program.character.Job})\nHP {Program.character.Hp}");
+            Console.WriteLine($"Exp.{Program.character.currentExp}/{(Program.character.Lv < 5 ? Program.character.MaxExp[Program.character.Lv - 1] : "000")}");
             Console.WriteLine();
             Console.WriteLine("0. 취소");
             Console.WriteLine();
