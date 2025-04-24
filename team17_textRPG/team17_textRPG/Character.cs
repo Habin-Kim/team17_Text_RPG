@@ -1,4 +1,11 @@
-﻿using static System.Net.Mime.MediaTypeNames;
+
+using System.Collections;
+using System.Globalization;
+using System.Linq.Expressions;
+using System.Net;
+using System.Runtime.CompilerServices;
+using static System.Net.Mime.MediaTypeNames;
+
 
 namespace team17_textRPG
 {
@@ -257,19 +264,59 @@ namespace team17_textRPG
                 Hp = 0;
             }
 
-            Console.WriteLine($"Lv.{Lv} {Name} 을(를) 맞췄습니다. [데미지 : {decreasDamage}] {(isCritical ? "- 치명타 공격!!" : "")}");
-            Console.WriteLine($"\nLv.{Lv} {Name}");
-            Console.WriteLine($"Hp {originalHp} -> {Hp}");
         }
         public void DecreaseHP(int damage)
         {
             beforeHp = Hp;
             Hp -= damage;
         }
-
+      
         public void PlayerRevive()
         {
             Hp = MaxHp;
+        }
+        public void RestUI()
+        {
+            Console.Clear();
+            Console.WriteLine("휴식하기");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write("500G ");
+            Console.ResetColor();
+            Console.WriteLine("를 내면 체력을 회복할 수 있습니다.");
+            Console.Write("현재 체력 : ");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine($"{Hp}");
+            Console.ResetColor();
+            Console.WriteLine($"보유 골드 : {Gold} G");
+            Console.WriteLine();
+            Console.WriteLine("1. 휴식하기");
+            Console.WriteLine("0. 나가기");
+            Console.WriteLine();
+            Console.WriteLine("원하시는 행동을 입력해주세요");
+            Console.Write(">>");
+
+            int result = Program.CheckInput(0, 1);
+
+            switch(result)
+            {
+                case 1 :
+                    Console.Clear();
+                    int originalHp = Hp;
+                    PlayerRevive();
+                    Gold -= 500;
+                    Console.WriteLine($"체력이 모두 회복되었습니다. {originalHp} -> {Hp}");
+                    Console.WriteLine($"보유 골드 : {Gold} G");
+                    Console.WriteLine();
+                    Console.WriteLine("0. 나가기");
+                    Console.ReadLine();
+                    goto case 0;
+
+                case 0 :
+                    Program.StartScene();
+                    break;
+            }
+
+
         }
     }
 }
