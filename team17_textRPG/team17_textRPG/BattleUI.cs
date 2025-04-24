@@ -12,14 +12,14 @@ namespace team17_textRPG
     {
         public Random rand = new Random();
         public List<Monsters> monsters = new List<Monsters>();
-        public Character character;
+        //public Character character;
         Item item = new Item();
 
 
         public BattleUI()
         {
             monsters = Monsters.Spawn();
-            character = Program.character;
+            //character = Program.character;
         }
         public void CharacterAttack(Character character, Monsters monster)
         {
@@ -108,7 +108,7 @@ namespace team17_textRPG
             //캐릭터 정보 불러오기
             Console.WriteLine();
             Console.WriteLine("[내정보]");
-            Console.WriteLine($"Lv.{character.Lv} {character.Name} ({character.Job})\nHP {character.Hp}");  
+            Console.WriteLine($"Lv.{Program.character.Lv} {Program.character.Name} ({Program.character.Job})\nHP {Program.character.Hp}");  
             Console.WriteLine();
             Console.WriteLine("1. 공격");
             Console.WriteLine();
@@ -144,7 +144,7 @@ namespace team17_textRPG
             //캐릭터 정보 불러오기
             Console.WriteLine();
             Console.WriteLine("[내정보]");
-            Console.WriteLine($"Lv.{character.Lv} {character.Name} ({character.Job})\nHP {character.Hp}");
+            Console.WriteLine($"Lv.{Program.character.Lv} {Program.character.Name} ({Program.character.Job})\nHP {Program.character.Hp}");
             Console.WriteLine();
             Console.WriteLine("0. 취소");
             Console.WriteLine();
@@ -167,7 +167,7 @@ namespace team17_textRPG
                         Monsters target = monsters[index];
                         if (target.Hp > 0)
                         {
-                            CharacterAttack(character, target);
+                            CharacterAttack(Program.character, target);
                         }
                         else
                         {
@@ -206,13 +206,13 @@ namespace team17_textRPG
                 {
                     if (monsters[i].Hp > 0)
                     {
-                        MonsterAttack(monsters[i], character);
+                        MonsterAttack(monsters[i], Program.character);
                         Console.WriteLine();
                         Console.WriteLine("0. 다음");
                         Console.Write(">>");
                         int result = Program.CheckInput(0,0);
                     }
-                    if (character.Hp <= 0)
+                    if (Program.character.Hp <= 0)
                     {
                        BattleResult battleResult = new BattleResult();
                        battleResult.Lose();
