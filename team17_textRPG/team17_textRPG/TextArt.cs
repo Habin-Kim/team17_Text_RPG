@@ -80,7 +80,7 @@ namespace team17_textRPG
                       \|
                 """);
                 Console.WriteLine();
-                Console.WriteLine("...무엇이든 베어낼 수 있을것만 같습니다...")
+                Console.WriteLine("...무엇이든 베어낼 수 있을것만 같습니다...");
 
 
             }
