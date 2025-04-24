@@ -251,15 +251,15 @@ namespace team17_textRPG
 
             int originalHp = Hp;
             Hp = originalHp-decreasDamage;
-            Console.WriteLine($"Lv.{Lv} {Name} 을(를) 맞췄습니다. [데미지 : {decreasDamage}] {(isCritical ? "- 치명타 공격!!" : "")}");
-            Console.WriteLine($"\nLv.{Lv} {Name}");
-            Console.WriteLine($"Hp {originalHp} -> {Hp}");
             
             if (Hp < 0)
             {
                 Hp = 0;
             }
 
+            Console.WriteLine($"Lv.{Lv} {Name} 을(를) 맞췄습니다. [데미지 : {decreasDamage}] {(isCritical ? "- 치명타 공격!!" : "")}");
+            Console.WriteLine($"\nLv.{Lv} {Name}");
+            Console.WriteLine($"Hp {originalHp} -> {Hp}");
         }
         public void DecreaseHP(int damage)
         {
