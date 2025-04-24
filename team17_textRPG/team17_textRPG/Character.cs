@@ -17,7 +17,7 @@
         private int extraDef;
         private int[] gearSlot = new int[] { 0, 0, 0 };
         private bool[] isSlotEmpty = new bool[] { true, true, true };
-
+        public int ExtraAtk => extraAtk;
         public Character(string name, int jobCode)
         {
             Name = name;

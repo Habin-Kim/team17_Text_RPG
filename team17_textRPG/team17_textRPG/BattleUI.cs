@@ -28,8 +28,8 @@ namespace team17_textRPG
             Console.WriteLine();
             Console.WriteLine("[PlayerPhase]");
             Console.WriteLine();
-            int errorRangeCA = (int)Math.Ceiling(character.Atk * 0.1);
-            int damage = rand.Next(character.Atk - errorRangeCA, character.Atk + errorRangeCA + 1);
+            int errorRangeCA = (int)Math.Ceiling((character.Atk + character.ExtraAtk) * 0.1);
+            int damage = rand.Next((character.Atk+ character.ExtraAtk) - errorRangeCA, (character.Atk +character.ExtraAtk) + errorRangeCA + 1);
 
             bool isCritical = rand.Next(0, 100) < 15;
             if (isCritical)
