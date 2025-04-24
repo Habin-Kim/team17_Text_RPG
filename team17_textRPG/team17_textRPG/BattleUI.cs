@@ -28,8 +28,8 @@ namespace team17_textRPG
             Console.WriteLine();
             Console.WriteLine("[PlayerPhase]");
             Console.WriteLine();
-            int errorRangeCA = (int)Math.Ceiling((character.Atk + character.ExtraAtk) * 0.1);
-            int damage = rand.Next((character.Atk+ character.ExtraAtk) - errorRangeCA, (character.Atk +character.ExtraAtk) + errorRangeCA + 1);
+            int errorRangeCA = (int)Math.Ceiling(character.totalAtk * 0.1);
+            int damage = rand.Next(character.totalAtk - errorRangeCA, character.totalAtk + errorRangeCA + 1);
 
             bool isCritical = rand.Next(0, 100) < 15;
             if (isCritical)
@@ -49,6 +49,11 @@ namespace team17_textRPG
             Console.WriteLine();
             int errorRangeMA = (int)Math.Ceiling(monster.Atk * 0.1);
             int damage = rand.Next(monster.Atk - errorRangeMA, monster.Atk + errorRangeMA + 1);
+            int finalDamage = damage - character.totalDef;
+            if (finalDamage <= 0)
+            {
+                finalDamage = 1;
+            }
 
             bool isCritical = rand.Next(0, 100) < 15;
             if (isCritical)
@@ -56,13 +61,13 @@ namespace team17_textRPG
                 damage = (int)Math.Ceiling(damage * 1.6f);
             }
             Console.WriteLine($"Lv.{monster.Level} {monster.Name} 의 공격!");
-            ApplyDamage(character, damage, isCritical);
+            ApplyDamage(character, finalDamage, isCritical);
         }
-        public void ApplyDamage(Character character, int damage, bool isCritical = false)
+        public void ApplyDamage(Character character, int finalDamage, bool isCritical = false)
         {
 
-            Console.WriteLine($"Lv.{character.Lv} {character.Name} 을(를) 맞췄습니다. [데미지 : {damage}] {(isCritical? "- 치명타 공격!!" :"")}");
-            character.PlayerGetDamage(damage, isCritical = false);
+            Console.WriteLine($"Lv.{character.Lv} {character.Name} 을(를) 맞췄습니다. [데미지 : {finalDamage}] {(isCritical? "- 치명타 공격!!" :"")}");
+            character.PlayerGetDamage(finalDamage, isCritical = false);
             //Console.WriteLine($"\nLv.{character.Lv} {character.Name}\nHP {originalHp} -> {character.Hp}");
 
         }

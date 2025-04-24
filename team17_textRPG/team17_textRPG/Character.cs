@@ -17,7 +17,8 @@
         private int extraDef;
         private int[] gearSlot = new int[] { 0, 0, 0 };
         private bool[] isSlotEmpty = new bool[] { true, true, true };
-        public int ExtraAtk => extraAtk;
+        public int totalAtk => extraAtk + Atk;
+        public int totalDef => extraDef + Def;
         public Character(string name, int jobCode)
         {
             Name = name;
@@ -236,10 +237,10 @@
             Hp = Math.Min(Hp + amount, MaxHp);
         }
 
-        public void PlayerGetDamage(int damage,bool isCritical)
+        public void PlayerGetDamage(int finalDamage,bool isCritical)
         {
             int originalHp = Hp;
-            Hp = originalHp-damage;
+            Hp = originalHp-finalDamage;
             Console.WriteLine($"\nLv.{Lv} {Name}");
             Console.WriteLine($"Hp {originalHp} -> {Hp}");
             
