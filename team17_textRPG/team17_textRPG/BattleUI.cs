@@ -47,29 +47,24 @@ namespace team17_textRPG
             Console.WriteLine();
             Console.WriteLine("[EnemyPhase]");
             Console.WriteLine();
+            
             int errorRangeMA = (int)Math.Ceiling(monster.Atk * 0.1);
             int damage = rand.Next(monster.Atk - errorRangeMA, monster.Atk + errorRangeMA + 1);
-            int finalDamage = damage - character.totalDef;
-            if (finalDamage <= 0)
-            {
-                finalDamage = 1;
-            }
-
+            
             bool isCritical = rand.Next(0, 100) < 15;
             if (isCritical)
             {
                 damage = (int)Math.Ceiling(damage * 1.6f);
             }
+
             Console.WriteLine($"Lv.{monster.Level} {monster.Name} 의 공격!");
-            ApplyDamage(character, finalDamage, isCritical);
+            ApplyDamage(character, damage, isCritical);
         }
-        public void ApplyDamage(Character character, int finalDamage, bool isCritical = false)
+        public void ApplyDamage(Character character, int damage, bool isCritical)
         {
 
-            Console.WriteLine($"Lv.{character.Lv} {character.Name} 을(를) 맞췄습니다. [데미지 : {finalDamage}] {(isCritical? "- 치명타 공격!!" :"")}");
-            character.PlayerGetDamage(finalDamage, isCritical = false);
+            character.PlayerGetDamage(damage, isCritical);
             //Console.WriteLine($"\nLv.{character.Lv} {character.Name}\nHP {originalHp} -> {character.Hp}");
-
         }
 
         public void ApplyDamage(Monsters monster, int damage, bool isCritical = false)

@@ -1,4 +1,6 @@
-﻿namespace team17_textRPG
+﻿using static System.Net.Mime.MediaTypeNames;
+
+namespace team17_textRPG
 {
     internal class Character
     {
@@ -237,10 +239,18 @@
             Hp = Math.Min(Hp + amount, MaxHp);
         }
 
-        public void PlayerGetDamage(int finalDamage,bool isCritical)
+        public void PlayerGetDamage(int damage, bool isCritical)
         {
+            int decreasDamage = (int)Math.Round(damage - (totalDef) * 0.6f);
+
+            if (decreasDamage <= 0)
+            {
+                decreasDamage = 1;
+            }
+
             int originalHp = Hp;
-            Hp = originalHp-finalDamage;
+            Hp = originalHp-decreasDamage;
+            Console.WriteLine($"Lv.{Lv} {Name} 을(를) 맞췄습니다. [데미지 : {decreasDamage}] {(isCritical ? "- 치명타 공격!!" : "")}");
             Console.WriteLine($"\nLv.{Lv} {Name}");
             Console.WriteLine($"Hp {originalHp} -> {Hp}");
             
@@ -248,7 +258,7 @@
             {
                 Hp = 0;
             }
-            
+
         }
 
         public void PlayerRevive()
