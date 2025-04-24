@@ -62,9 +62,8 @@ namespace team17_textRPG
         {
 
             Console.WriteLine($"Lv.{character.Lv} {character.Name} 을(를) 맞췄습니다. [데미지 : {damage}] {(isCritical? "- 치명타 공격!!" :"")}");
-            character.PlayerGetDamage(damage, isCritical=false);
-            // Console.WriteLine($"\nLv.{character.Lv} {character.Name}\nHP {character.beforeHp} -> {character.Hp}");
-
+            character.DecreaseHP(damage);
+            Console.WriteLine($"\nLv.{character.Lv} {character.Name}\nHP {character.beforeHp} -> {character.Hp}");
         }
 
         public void ApplyDamage(Monsters monster, int damage, bool isCritical = false)
