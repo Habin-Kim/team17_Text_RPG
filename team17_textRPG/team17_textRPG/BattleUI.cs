@@ -37,6 +37,7 @@ namespace team17_textRPG
             {
                 damage = (int)Math.Ceiling(damage * 1.6f);
             }
+            textArt.PlayerArt(character.Hp, character.MaxHp);
             Console.WriteLine($"{character.Name} 의 공격!");
             ApplyDamage(monster, damage, isCritical);
         }
@@ -80,10 +81,11 @@ namespace team17_textRPG
                 monster.Hp = 0;
                 Console.WriteLine($"Lv.{monster.Level} {monster.Name} 을(를) 맞췄습니다. [데미지 : {damage}] {(isCritical ? "- 치명타 공격!!" : "")}");
                 Console.WriteLine($"\nLv.{monster.Level} {monster.Name}\nHP {originalHp} -> Dead");
-                Console.WriteLine($"경험치 {monster.Exp}를 얻었습니다.");
+                Console.WriteLine($"\n경험치 {monster.Exp}를 얻었습니다.");
                 Character.GetExp(monster.Exp);
                 Monsters.deadMonsterCount++;
                 item.GetHpPotion();
+                item.GetGold();
 
             }
             else
@@ -233,6 +235,7 @@ namespace team17_textRPG
                         Console.WriteLine();
                         Console.WriteLine("0. 다음");
                         Console.Write(">>");
+                        textArt.FriendsHelp(Program.character.Hp, Program.character.MaxHp);
 
                         int result = Program.CheckInput(0, 0);
                     }
