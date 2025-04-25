@@ -37,6 +37,7 @@ namespace team17_textRPG
             {
                 damage = (int)Math.Ceiling(damage * 1.6f);
             }
+            textArt.PlayerArt(character.Hp, character.MaxHp);
             Console.WriteLine($"{character.Name} 의 공격!");
             ApplyDamage(monster, damage, isCritical);
         }
@@ -217,6 +218,7 @@ namespace team17_textRPG
                         Console.WriteLine();
                         Console.WriteLine("0. 다음");
                         Console.Write(">>");
+                        textArt.FriendsHelp(Program.character.Hp, Program.character.MaxHp);
 
                         int result = Program.CheckInput(0,0);
                     }

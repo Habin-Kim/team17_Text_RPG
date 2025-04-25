@@ -34,6 +34,8 @@
             switch (result)
             {
                 case 0:
+                    TextArt textart = new TextArt();
+                    textart.MeetFriendScene();
                     Program.StartScene();
                     break;
             }
