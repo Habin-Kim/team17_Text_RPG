@@ -7,28 +7,32 @@ using System.Threading.Tasks;
 namespace team17_textRPG
 {
     internal class Store
-    {  
+    {
 
         public static void ShowStore()
         {
             int result;
-            Console.Clear();
-            Console.WriteLine("\n상점\n");
-            TextArt.ShopOwnerArt();
-            Gears.ShowGears(1);
-
-            Console.WriteLine("\n1.장비 구매  0.나가기");
-            Console.WriteLine("\n원하시는 행동을 입력해 주세요.");
-            Console.Write(">>");
-            result = Program.CheckInput(0, 1);
-            switch (result)
+            while (true)
             {
-                case 0:
-                    Program.StartScene();
-                    break;
-                case 1:
-                    PurchaseGear();
-                    break;
+                Console.Clear();
+                Console.WriteLine("\n상점\n");
+                TextArt.ShopOwnerArt();
+                Gears.ShowGears(1);
+
+                Console.WriteLine("\n1.장비 구매  0.나가기");
+                Console.WriteLine("\n원하시는 행동을 입력해 주세요.");
+                Console.Write(">>");
+                result = Program.CheckInput(0, 1);
+                switch (result)
+                {
+                    case 0:
+                        // Program.StartScene();
+                        // break;
+                        return;
+                    case 1:
+                        PurchaseGear();
+                        break;
+                }
             }
         }
 
@@ -44,10 +48,11 @@ namespace team17_textRPG
             Console.WriteLine("\n원하시는 행동을 입력해 주세요.");
             Console.Write(">>");
             result = Program.CheckInput(0, gearCount);
-            
+            int code = result;
             if (result == 0)
             {
-                ShowStore();
+                // ShowStore();
+                return;
             }
             Gears gear = Program.gearDb[result - 1];
             if (result != 0)
@@ -66,13 +71,13 @@ namespace team17_textRPG
                 switch (result)
                 {
                     case 0:
-                        ShowStore();
-                        break;
+                        // ShowStore();
+                        // break;
+                        return;
                     case 1:
-                        if (Program.character.Gold >= gear.Price && !gear.isHave)
+                        if (Program.character.Gold >= gear.Price && !Program.character.GearsIHave[code - 1])
                         {
-                            Program.character.BuyItem(gear);
-                            gear.isHave = true;
+                            Program.character.BuyItem(gear, code - 1);
                             Console.Clear();
                             Console.WriteLine("\n상점\n");
                             eff = gear.Type == 1 ? "공격력" : "방어력";
@@ -85,8 +90,9 @@ namespace team17_textRPG
                             switch (result)
                             {
                                 case 0:
-                                    ShowStore();
-                                    break;
+                                    // ShowStore();
+                                    // break;
+                                    return;
                                 case 1:
                                     Program.character.ShowInv();
                                     break;
@@ -103,7 +109,7 @@ namespace team17_textRPG
                             Console.WriteLine("\n원하시는 행동을 입력해 주세요.");
                             Console.Write(">>");
                             result = Program.CheckInput(0, 0);
-                            ShowStore();
+                            // ShowStore();
                         }
                         else
                         {
@@ -116,9 +122,9 @@ namespace team17_textRPG
                             Console.WriteLine("\n원하시는 행동을 입력해 주세요.");
                             Console.Write(">>");
                             result = Program.CheckInput(0, 0);
-                            ShowStore();
+                            // ShowStore();
                         }
-                        break;
+                        return;
                 }
             }
         }

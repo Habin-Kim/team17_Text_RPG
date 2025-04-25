@@ -36,7 +36,7 @@
                 case 0:
                     TextArt textart = new TextArt();
                     textart.MeetFriendScene();
-                    Program.StartScene();
+                    // Program.StartScene();
                     break;
             }
         }

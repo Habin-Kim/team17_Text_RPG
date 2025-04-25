@@ -8,9 +8,37 @@ namespace team17_textRPG
         public static Gears[] gearDb { get; set; }
         static void Main(string[] args)
         {
+            MainMain();
             CreateCharacter();
             LoadGear();
             StartScene();
+        }
+        static void MainMain()
+        {
+            int getInt = 0;
+            while (true)
+            {
+                Console.Clear();
+                TextArt.TextRpgArt();
+                Console.WriteLine("\n스파르타 던전에 오신 여러분 환영합니다.");
+                Console.WriteLine("\n1.게임시작  2.불러오기");
+                Console.WriteLine("\n번호를 입력해 주세요.");
+                Console.Write(">>");
+                getInt = CheckInput(1, 2);
+
+                if (getInt == 1)
+                {
+                    return;
+                }
+                else
+                {
+                    int i = SaveLoad.Load();
+                    if (i == 1)
+                    {
+                        StartScene();
+                    }
+                }
+            }
         }
         static void CreateCharacter()
         {
@@ -31,61 +59,64 @@ namespace team17_textRPG
             getInt = CheckInput(1, 2);
             character = new Character(getString, getInt, 1, (getInt == 1? 100: 80), 1500, 0, 0, 0, new int[] { -1,-1,-1});
         }
-        static void LoadGear()
+        public static void LoadGear()
         {
             gearDb = new Gears[]
             {
-                new Gears("목검", "나무로 만든 검", 2, 500, 1, false),
-                new Gears("철검","철로 만든 검", 5, 1000, 1, false),
-                new Gears("강철검","강철로 만든 검", 10, 2000, 1, false),
-                new Gears("목방패", "나무로 만든 방패", 2, 500, 2, false),
-                new Gears("철방패","철로 만든 방패", 5, 1000, 2, false),
-                new Gears("강철방패","강철로 만든 방패", 10, 2000, 2, false),
-                new Gears("나무갑옷", "나무로 만든 갑옷", 2, 500, 3, false),
-                new Gears("철갑옷","철로 만든 갑옷", 5, 1000, 3, false),
-                new Gears("강철갑옷","강철로 만든 갑옷", 10, 2000, 3, false)
+                new Gears("목검", "나무로 만든 검", 2, 500, 1),
+                new Gears("철검","철로 만든 검", 5, 1000, 1),
+                new Gears("강철검","강철로 만든 검", 10, 2000, 1),
+                new Gears("목방패", "나무로 만든 방패", 2, 500, 2),
+                new Gears("철방패","철로 만든 방패", 5, 1000, 2),
+                new Gears("강철방패","강철로 만든 방패", 10, 2000, 2),
+                new Gears("나무갑옷", "나무로 만든 갑옷", 2, 500, 3),
+                new Gears("철갑옷","철로 만든 갑옷", 5, 1000, 3),
+                new Gears("강철갑옷","강철로 만든 갑옷", 10, 2000, 3)
             };
         }
         public static void StartScene()
-        {   
-            Console.Clear();
-            Console.WriteLine("\n스파르타 던전에 오신 여러분 환영합니다.");
-            Console.WriteLine("이제 전투를 시작할 수 있습니다.");
-            Console.WriteLine("\n1. 상태 보기\n2. 상점\n3. 인벤토리\n4. 전투 시작\n5. 회복 아이템\n6. 치료하기");
-            Console.WriteLine("\n원하시는 행동을 입력해 주세요.");
-            Console.Write(">>");
-            int result = CheckInput(1, 8);
-            switch (result)
+        {
+            while (true)
             {
-                case 1:
-                    character.ShowStats();
-                    ShowStats();
-                    break;
-                case 2:
-                    Store.ShowStore();
-                    break;
-                case 3:
-                    character.ShowInv();
-                    break;
-                case 4:
-                    BattleUI battleUI = new BattleUI();
-                    battleUI.BattleStart();
-                    break;
-                case 5:
-                    Item itemclass = new Item();
-                    itemclass.DisplayHealUI();
-                    break;
-                case 6:
-                    character.RestUI();
-                    break;
-                case 7:
-                    SaveLoad.Save();
-                    SaveLoad.SaveGear();
-                    break;
-                case 8:
-                    SaveLoad.Load();
-                    SaveLoad.LoadGear();
-                    break;
+                Console.Clear();
+                Console.WriteLine("\n스파르타 던전에 오신 여러분 환영합니다.");
+                Console.WriteLine("이제 전투를 시작할 수 있습니다.");
+                Console.WriteLine("\n1. 상태 보기\n2. 상점\n3. 인벤토리\n4. 전투 시작\n5. 회복 아이템\n6. 치료하기\n7. 저장\n8. 불러오기");
+                Console.WriteLine("\n원하시는 행동을 입력해 주세요.");
+                Console.Write(">>");
+                int result = CheckInput(1, 8);
+                switch (result)
+                {
+                    case 1:
+                        // character.ShowStats();
+                        ShowStats();
+                        break;
+                    case 2:
+                        Store.ShowStore();
+                        break;
+                    case 3:
+                        character.ShowInv();
+                        break;
+                    case 4:
+                        BattleUI battleUI = new BattleUI();
+                        battleUI.BattleStart();
+                        break;
+                    case 5:
+                        Item itemclass = new Item();
+                        itemclass.DisplayHealUI();
+                        break;
+                    case 6:
+                        character.RestUI();
+                        break;
+                    case 7:
+                        SaveLoad.Save();
+                        //SaveLoad.SaveGear();
+                        break;
+                    case 8:
+                        SaveLoad.Load();
+                        //SaveLoad.LoadGear();
+                        break;
+                }
             }
         }
 
@@ -97,8 +128,9 @@ namespace team17_textRPG
             switch (result)
             {
                 case 0:
-                    StartScene();
-                    break;
+                    // StartScene();
+                    // break;
+                    return;
             }
         }
 

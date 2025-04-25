@@ -26,6 +26,7 @@ namespace team17_textRPG
         public int CurrentExp { get; private set; }
         public int ExtraAtk { get; private set; }
         public int ExtraDef { get; private set; }
+        public bool[] GearsIHave = new bool[] { false, false, false, false, false, false, false, false, false };
         public int[] GearSlot { get; private set; } = new int[] { -1, -1, -1 };
         private bool[] isSlotEmpty = new bool[] { true, true, true };
         public int totalAtk => ExtraAtk + Atk;
@@ -87,23 +88,27 @@ namespace team17_textRPG
         {
             int result;
             int InvGearCount = InventoryGears.Count;
-            Console.Clear();
-            Console.WriteLine("\n인벤토리");
-            Console.WriteLine("인벤토리의 정보가 표시됩니다.\n");
-
-            ShowInvList(1);
-            Console.WriteLine("\n1.장착관리  0.나가기");
-            Console.WriteLine("\n원하시는 행동을 입력해 주세요.");
-            Console.Write(">>");
-            result = Program.CheckInput(0, 1);
-            switch (result)
+            while (true)
             {
-                case 1:
-                    EquipGear();
-                    break;
-                case 0:
-                    Program.StartScene();
-                    break;
+                Console.Clear();
+                Console.WriteLine("\n인벤토리");
+                Console.WriteLine("인벤토리의 정보가 표시됩니다.\n");
+
+                ShowInvList(1);
+                Console.WriteLine("\n1.장착관리  0.나가기");
+                Console.WriteLine("\n원하시는 행동을 입력해 주세요.");
+                Console.Write(">>");
+                result = Program.CheckInput(0, 1);
+                switch (result)
+                {
+                    case 1:
+                        EquipGear();
+                        break;
+                    case 0:
+                        // Program.StartScene();
+                        // break;
+                        return;
+                }
             }
         }
 
@@ -150,7 +155,7 @@ namespace team17_textRPG
             Console.WriteLine("\n원하시는 행동을 입력해 주세요.");
             Console.Write(">>");
 
-            result = Program.CheckInput(1, InvGearCount);
+            result = Program.CheckInput(0, InvGearCount);
             if (result != 0)
             {
                 int iNum = result - 1;
@@ -229,23 +234,25 @@ namespace team17_textRPG
                             GearSlot[2] = iNum;
                         }
                     }
-                    ShowInv();
+                    // ShowInv();
                 }
-                else
-                {
-                    ShowInv();
-                }
+                // else
+                // {
+                //     // ShowInv();
+                // }
             }
-            else
-            {
-                ShowInv();
-            }
+            return;
+            // else
+            // {
+            //     // ShowInv();
+            // }
         }
 
-        public void BuyItem(Gears gear)
+        public void BuyItem(Gears gear, int code)
         {
             InventoryGears.Add(gear);
             Gold -= gear.Price;
+            GearsIHave[code] = true;
         }
         public static void GetExp(int exp)
         {
@@ -340,7 +347,7 @@ namespace team17_textRPG
                     goto case 0;
 
                 case 0 :
-                    Program.StartScene();
+                    // Program.StartScene();
                     break;
             }
         }

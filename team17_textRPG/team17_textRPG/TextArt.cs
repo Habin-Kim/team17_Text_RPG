@@ -252,6 +252,7 @@ namespace team17_textRPG
 
                 case "근육고릴라":
                     Console.WriteLine(
+
                     """
                                                        ."`".
                                                    .-./ _=_ \.-.
