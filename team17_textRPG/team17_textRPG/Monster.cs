@@ -5,20 +5,22 @@ namespace team17_textRPG
     internal class Monsters
     {
         public string Name;
-
         public int Level;
         public int Atk;
         public int Hp;
-
+        Item item = new Item();
         bool isDead = false;
+        public static int deadMonsterCount;
+        public int Exp { get; private set; }
 
         // 몬스터 레벨에 따라서 스탯 정해짐
-        public Monsters(string name, int level, int atk, int hp)
+        public Monsters(string name, int level, int atk, int hp ,int exp)
         {
             Name = name;
             Level = level;
             Atk = atk;
             Hp = hp;
+            Exp = exp;
             isDead = false;
         }
 
@@ -40,15 +42,15 @@ namespace team17_textRPG
                 // 레벨에 따른 몬스터 타입 선택
                 if (monsterLevel <= 2)
                 {
-                    monstersList.Add(new Monsters("Lv2 미니언", 2, 5, 15));
+                    monstersList.Add(new Monsters("흡혈박쥐", 2, 5, 15, 10));
                 }
                 else if (monsterLevel <= 4)
                 {
-                    monstersList.Add(new Monsters("Lv3 공허충", 3, 9, 10));
+                    monstersList.Add(new Monsters("감염된옥토퍼스", 3, 9, 10, 20));
                 }
                 else
                 {
-                    monstersList.Add(new Monsters("Lv5 대포미니언", 5, 8, 25));
+                    monstersList.Add(new Monsters("근육고릴라", 5, 8, 25, 40));
                 }
             }
 
@@ -58,22 +60,22 @@ namespace team17_textRPG
         // 몬스터 등장 및 정보
         public void SpawnInfo()
         {
-            Console.WriteLine($" Lv.{Level} {Name} 등장!!");
+            Console.WriteLine($"Lv.{Level} {Name} 등장!!");
         }
 
         // 전투 시 출력 될 몬스터 정보
         public void BattleInfo()
         {
-            if (isDead)
+            if (Hp<=0)
             {
                 Console.ForegroundColor = ConsoleColor.DarkGray;
-                Console.WriteLine($" Lv.{Level} {Name} Dead");
+                Console.WriteLine($"Lv.{Level} {Name} Dead");
             }
             else
             {
-                Console.WriteLine($" Lv.{Level} {Name}  HP: {Hp}");
+                Console.WriteLine($"Lv.{Level} {Name}  HP: {Hp}");
             }
-            Console.ResetColor(); // 수정 생각 중
+            Console.ResetColor();
         }
 
         // 몬스터 피격
@@ -88,8 +90,6 @@ namespace team17_textRPG
                 Console.WriteLine($"HP {Hp} -> Dead");
             }
         }
-
-        // 몬스터 공격
         public void Attack()
         {
             if (!isDead)
