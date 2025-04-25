@@ -57,7 +57,7 @@ namespace team17_textRPG
             Console.WriteLine("\n1. 전사\n2. 도적");
             Console.Write("\n>>");
             getInt = CheckInput(1, 2);
-            character = new Character(getString, getInt, 1, (getInt == 1? 100: 80), 1500, 0, 0, 0, new int[] { -1,-1,-1}, false);
+            character = new Character(getString, getInt, 1, (getInt == 1? 100: 80), 1500, 0, 0, 0, new int[] { -1,-1,-1});
         }
         public static void LoadGear()
         {
