@@ -26,6 +26,7 @@ namespace team17_textRPG
         public int CurrentExp { get; private set; }
         public int ExtraAtk { get; private set; }
         public int ExtraDef { get; private set; }
+        public bool[] GearsIHave = new bool[] { false, false, false, false, false, false, false, false, false };
         public int[] GearSlot { get; private set; } = new int[] { -1, -1, -1 };
         private bool[] isSlotEmpty = new bool[] { true, true, true };
         public int totalAtk => ExtraAtk + Atk;
@@ -247,10 +248,11 @@ namespace team17_textRPG
             // }
         }
 
-        public void BuyItem(Gears gear)
+        public void BuyItem(Gears gear, int code)
         {
             InventoryGears.Add(gear);
             Gold -= gear.Price;
+            GearsIHave[code] = true;
         }
         public static void GetExp(int exp)
         {

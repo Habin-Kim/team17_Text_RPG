@@ -48,7 +48,7 @@ namespace team17_textRPG
             Console.WriteLine("\n원하시는 행동을 입력해 주세요.");
             Console.Write(">>");
             result = Program.CheckInput(0, gearCount);
-            
+            int code = result;
             if (result == 0)
             {
                 // ShowStore();
@@ -75,10 +75,9 @@ namespace team17_textRPG
                         // break;
                         return;
                     case 1:
-                        if (Program.character.Gold >= gear.Price && !gear.isHave)
+                        if (Program.character.Gold >= gear.Price && !Program.character.GearsIHave[code - 1])
                         {
-                            Program.character.BuyItem(gear);
-                            gear.isHave = true;
+                            Program.character.BuyItem(gear, code - 1);
                             Console.Clear();
                             Console.WriteLine("\n상점\n");
                             eff = gear.Type == 1 ? "공격력" : "방어력";
