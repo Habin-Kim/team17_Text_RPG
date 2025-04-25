@@ -112,8 +112,8 @@ namespace team17_textRPG
             //캐릭터 정보 불러오기
             Console.WriteLine();
             Console.WriteLine("[내정보]");
-            Console.WriteLine($"Lv.{Program.character.Lv} {Program.character.Name} ({Program.character.Job})\nHP {Program.character.Hp}");
-            Console.WriteLine($"Exp.{Program.character.currentExp}/{(Program.character.Lv < 5 ? Program.character.MaxExp[Program.character.Lv - 1] : "000")}");
+            Console.WriteLine($"Lv.{Program.character.Lv} {Program.character.Name} ({Program.character.Jobs[Program.character.JobCode]})\nHP {Program.character.Hp}");
+            Console.WriteLine($"Exp.{Program.character.CurrentExp}/{(Program.character.Lv < 5 ? Program.character.MaxExp[Program.character.Lv - 1] : "000")}");
             Console.WriteLine();
             Console.WriteLine("1. 공격");
             Console.WriteLine();
@@ -149,8 +149,8 @@ namespace team17_textRPG
             //캐릭터 정보 불러오기
             Console.WriteLine();
             Console.WriteLine("[내정보]");
-            Console.WriteLine($"Lv.{Program.character.Lv} {Program.character.Name} ({Program.character.Job})\nHP {Program.character.Hp}");
-            Console.WriteLine($"Exp.{Program.character.currentExp}/{(Program.character.Lv < 5 ? Program.character.MaxExp[Program.character.Lv - 1] : "000")}");
+            Console.WriteLine($"Lv.{Program.character.Lv} {Program.character.Name} ({Program.character.Jobs[Program.character.JobCode]})\nHP {Program.character.Hp}");
+            Console.WriteLine($"Exp.{Program.character.CurrentExp}/{(Program.character.Lv < 5 ? Program.character.MaxExp[Program.character.Lv - 1] : "000")}");
             Console.WriteLine();
             Console.WriteLine("0. 취소");
             Console.WriteLine();
