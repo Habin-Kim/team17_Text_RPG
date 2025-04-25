@@ -18,6 +18,7 @@ namespace team17_textRPG
                 Console.WriteLine("\n상점\n");
                 TextArt.ShopOwnerArt();
                 Gears.ShowGears(1);
+                Console.WriteLine($"\t\t\t\t\t골드 : {Program.character.Gold}G");
 
                 Console.WriteLine("\n1.장비 구매  0.나가기");
                 Console.WriteLine("\n원하시는 행동을 입력해 주세요.");

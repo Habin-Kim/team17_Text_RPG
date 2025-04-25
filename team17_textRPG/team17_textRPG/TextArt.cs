@@ -4,12 +4,13 @@ using System.Security.Cryptography.X509Certificates;
 // 이미지 출처 : https://www.asciiart.eu/
 namespace team17_textRPG
 {
-
+    
     
     class TextArt
     {
+        Character character = Program.character;
         // Console.OutputEncoding = System.Text.Encoding.UTF8; 
-        public static bool MeetFriendSceneHasRun = false; //저장기능에 추가해주세요. true일 때 동료도움 실행됨.
+        //public static bool MeetFriendSceneHasRun = false; //저장기능에 추가해주세요. true일 때 동료도움 실행됨.
         public static void TextRpgArt()
         {
             Console.WriteLine("""
@@ -322,7 +323,7 @@ namespace team17_textRPG
         public void MeetFriendScene()
         {   
             
-            if(MeetFriendSceneHasRun == false) //실행이 1번만 되도록.
+            if(character.MeetFriendSceneHasRun == false) //실행이 1번만 되도록.
             {
                 Console.Clear();
                 Console.WriteLine("멀리서 사람이 한 명 다가온다....");
@@ -361,7 +362,7 @@ namespace team17_textRPG
                 Console.WriteLine("동료를 얻었습니다.");
                 Console.ReadLine();
                 Console.WriteLine("이제부터 위험에 처했을 때 동료가 당신을 돕습니다.");
-                MeetFriendSceneHasRun = true;
+                character.MeetFriendSceneHasRun = true;
                 Console.ReadLine();
             }
         }
@@ -369,7 +370,7 @@ namespace team17_textRPG
         //동료의 도움 -> 체력 15 회복
         public void FriendsHelp(int hp, int maxhp)
         {
-            if(MeetFriendSceneHasRun == true)
+            if(character.MeetFriendSceneHasRun == true)
             {
                 Random rand = new Random(); 
                 double playerhp = (double)hp / maxhp;

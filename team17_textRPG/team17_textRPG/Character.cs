@@ -22,17 +22,21 @@ namespace team17_textRPG
         public int MaxHp {get; private set;}
         public int beforeHp{get; private set;}
         public int Gold { get; private set; }
+        public int getGold;
+        public int totalGold => Gold + getGold;
         public int[] MaxExp { get; private set; }
         public int CurrentExp { get; private set; }
         public int ExtraAtk { get; private set; }
         public int ExtraDef { get; private set; }
-        public bool[] GearsIHave = new bool[] { false, false, false, false, false, false, false, false, false };
-        public int[] GearSlot { get; private set; } = new int[] { -1, -1, -1 };
-        private bool[] isSlotEmpty = new bool[] { true, true, true };
         public int totalAtk => ExtraAtk + Atk;
         public int totalDef => ExtraDef + Def;
-        public int getGold;
-        public int totalGold => Gold + getGold;
+
+        public bool[] GearsIHave = new bool[] { false, false, false, false, false, false, false, false, false };
+        public int[] GearSlot { get; private set; } = new int[] { -1, -1, -1 };
+        //private bool[] isSlotEmpty = new bool[] { true, true, true };
+        public bool MeetFriendSceneHasRun;
+        
+        
 
         public Character(string name, int jobCode, int lv, int hp, int gold, int currentExp, int extraAtk, int extraDef, int[] gearSlot)
         {
@@ -61,6 +65,7 @@ namespace team17_textRPG
             ExtraAtk = extraAtk;
             ExtraDef = extraDef;
             GearSlot = gearSlot;
+            MeetFriendSceneHasRun = false;
         }
 
         //List<Item> itemList = new List<Item>();
