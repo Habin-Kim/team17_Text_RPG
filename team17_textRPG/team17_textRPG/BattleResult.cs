@@ -30,7 +30,7 @@
             switch (result)
             {
                 case 0:
-                    Program.StartScene();
+                    // Program.StartScene();
                     break;
             }
         }
