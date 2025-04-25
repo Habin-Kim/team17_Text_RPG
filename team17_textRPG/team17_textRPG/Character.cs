@@ -1,12 +1,20 @@
-﻿using static System.Net.Mime.MediaTypeNames;
+﻿
+using System.Collections;
+using System.Globalization;
+using System.Linq.Expressions;
+using System.Net;
+using System.Runtime.CompilerServices;
+using static System.Net.Mime.MediaTypeNames;
+
 
 namespace team17_textRPG
 {
     internal class Character
     {
         public string Name { get; private set; }
-        public string Job { get; private set; }
-        private string[] Jobs = new string[] { "전사", "도적" };
+        private string Job;
+        public string[] Jobs { get; private set; } = new string[] { "전사", "도적" };
+        public int JobCode { get; private set; }
         public int Lv { get; private set; }
         public int Atk { get; private set; }
         public int Def { get; private set; }
@@ -15,40 +23,45 @@ namespace team17_textRPG
         public int beforeHp{get; private set;}
         public int Gold { get; private set; }
         public int[] MaxExp { get; private set; }
-        public int currentExp { get; private set; }
-        private int extraAtk;
-        private int extraDef;
-        private int[] gearSlot = new int[] { 0, 0, 0 };
+        public int CurrentExp { get; private set; }
+        public int ExtraAtk { get; private set; }
+        public int ExtraDef { get; private set; }
+        public int[] GearSlot { get; private set; } = new int[] { -1, -1, -1 };
         private bool[] isSlotEmpty = new bool[] { true, true, true };
-        public int totalAtk => extraAtk + Atk;
-        public int totalDef => extraDef + Def;
-        public Character(string name, int jobCode)
+        public int totalAtk => ExtraAtk + Atk;
+        public int totalDef => ExtraDef + Def;
+        public Character(string name, int jobCode, int lv, int hp, int gold, int currentExp, int extraAtk, int extraDef, int[] gearSlot)
         {
             Name = name;
-            Job = Jobs[jobCode - 1];
+            JobCode = jobCode;
+            Job = Jobs[JobCode-1];
+            
             if (jobCode == 1)
             {
                 Atk = 10;
                 Def = 5;
-                Hp = 100;
+                Hp = hp;
                 MaxHp = 100;
             }
             else
             {
                 Atk = 12;
                 Def = 3;
-                Hp = 80;
+                Hp = hp;
                 MaxHp = 80;
             }
-            Lv = 1;
-            Gold = 1500;
+            Lv = lv;
+            Gold = gold;
             MaxExp = new int[] { 10, 35, 65, 100 };
-            currentExp = 0;
+            CurrentExp = currentExp;
+            ExtraAtk = extraAtk;
+            ExtraDef = extraDef;
+            GearSlot = gearSlot;
         }
 
         //List<Item> itemList = new List<Item>();
-        List<Gears> InventoryGears = new List<Gears>();
-        List<Gears> EquippedGears = new List<Gears>();
+        public List<Gears> InventoryGears = new List<Gears>();
+        public List<Gears> EquippedGears = new List<Gears>();
 
         public void ShowStats()
         {
@@ -57,10 +70,11 @@ namespace team17_textRPG
             Console.WriteLine("캐릭터의 정보가 표시됩니다.\n");
             Console.WriteLine("Lv. {0:D2}", Lv);
             Console.WriteLine($"{Name} ({Job})");
-            Console.WriteLine(extraAtk > 0 ? $"공격력: {Atk + extraAtk} +({extraAtk})" : $"공격력: {Atk}");
-            Console.WriteLine(extraDef > 0 ? $"방어력: {Def + extraDef} +({extraDef})" : $"방어력: {Def}");
+            Console.WriteLine(ExtraAtk > 0 ? $"공격력: {Atk + ExtraAtk} +({ExtraAtk})" : $"공격력: {Atk}");
+            Console.WriteLine(ExtraDef > 0 ? $"방어력: {Def + ExtraDef} +({ExtraDef})" : $"방어력: {Def}");
             Console.WriteLine($"체 력: {Hp}");
             Console.WriteLine($"Gold: {Gold}");
+            Console.WriteLine($"Exp : {CurrentExp}/{(Lv < 5 ? MaxExp[Lv - 1] : "000")}");
             Console.WriteLine("\n0.나가기");
             Console.WriteLine("\n원하시는 행동을 입력해 주세요.");
             Console.Write(">>");
@@ -103,18 +117,18 @@ namespace team17_textRPG
             {
                 if (typeBefore != InventoryGears[i].Type)
                 {
-                    switch (InventoryGears[i].Type)
-                    {
-                        case 1:
-                            Console.WriteLine("[검]");
-                            break;
-                        case 2:
-                            Console.WriteLine("\n[방패]");
-                            break;
-                        default:
-                            Console.WriteLine("\n[갑옷]");
-                            break;
-                    }
+                    //switch (InventoryGears[i].Type)
+                    //{
+                    //    case 1:
+                    //        Console.WriteLine("[검]");
+                    //        break;
+                    //    case 2:
+                    //        Console.WriteLine("\n[방패]");
+                    //        break;
+                    //    default:
+                    //        Console.WriteLine("\n[갑옷]");
+                    //        break;
+                    //}
                 }
                 eff = InventoryGears[i].Type == 1 ? "공격력" : "방어력";
                 Console.WriteLine($"-{(type == 1 ? "" : i + 1)} {(InventoryGears[i].isEquipped ? "[E]" : "")}{InventoryGears[i].Name}  | {eff}+{InventoryGears[i].Effect}  | {InventoryGears[i].Desc}");
@@ -156,15 +170,22 @@ namespace team17_textRPG
                 {
                     if (gear.isEquipped)
                     {
-                        EquippedGears.Remove(gear);
+                        //EquippedGears.Remove(gear);
                         gear.isEquipped = false;
                         if (gear.Type == 1)
                         {
-                            extraAtk -= gear.Effect;
+                            EquippedGears.Remove(EquippedGears[GearSlot[0]]);
+                            ExtraAtk -= gear.Effect;
+                        }
+                        else if(gear.Type == 2)
+                        {
+                            EquippedGears.Remove(EquippedGears[GearSlot[1]]);
+                            ExtraDef -= gear.Effect;
                         }
                         else
                         {
-                            extraDef -= gear.Effect;
+                            EquippedGears.Remove(EquippedGears[GearSlot[2]]);
+                            ExtraDef -= gear.Effect;
                         }
                     }
                     else
@@ -173,33 +194,36 @@ namespace team17_textRPG
                         gear.isEquipped = true;
                         if (gear.Type == 1)
                         {
-                            if (gearSlot[0] != -1)
+                            if (GearSlot[0] != -1)
                             {
-                                InventoryGears[gearSlot[0]].isEquipped = false;
-                                EquippedGears.Remove(InventoryGears[gearSlot[0]]);
+                                ExtraAtk -= InventoryGears[GearSlot[0]].Effect;
+                                InventoryGears[GearSlot[0]].isEquipped = false;
+                                EquippedGears.Remove(EquippedGears[0]);
                             }
-                            extraAtk += gear.Effect;
-                            gearSlot[0] = iNum;
+                            ExtraAtk += gear.Effect;
+                            GearSlot[0] = iNum;
                         }
                         else if (gear.Type == 2)
                         {
-                            if (gearSlot[1] != -1)
+                            if (GearSlot[1] != -1)
                             {
-                                InventoryGears[gearSlot[1]].isEquipped = false;
-                                EquippedGears.Remove(InventoryGears[gearSlot[1]]);
+                                ExtraDef -= InventoryGears[GearSlot[1]].Effect;
+                                InventoryGears[GearSlot[1]].isEquipped = false;
+                                EquippedGears.Remove(EquippedGears[1]);
                             }
-                            extraDef += gear.Effect;
-                            gearSlot[1] = iNum;
+                            ExtraDef += gear.Effect;
+                            GearSlot[1] = iNum;
                         }
                         else
                         {
-                            if (gearSlot[2] != -1)
+                            if (GearSlot[2] != -1)
                             {
-                                InventoryGears[gearSlot[2]].isEquipped = false;
-                                EquippedGears.Remove(InventoryGears[gearSlot[2]]);
+                                ExtraDef -= InventoryGears[GearSlot[2]].Effect;
+                                InventoryGears[GearSlot[2]].isEquipped = false;
+                                EquippedGears.Remove(EquippedGears[2]);
                             }
-                            extraDef += gear.Effect;
-                            gearSlot[2] = iNum;
+                            ExtraDef += gear.Effect;
+                            GearSlot[2] = iNum;
                         }
                     }
                     ShowInv();
@@ -209,6 +233,10 @@ namespace team17_textRPG
                     ShowInv();
                 }
             }
+            else
+            {
+                ShowInv();
+            }
         }
 
         public void BuyItem(Gears gear)
@@ -216,23 +244,29 @@ namespace team17_textRPG
             InventoryGears.Add(gear);
             Gold -= gear.Price;
         }
-        public void GetExp(int exp)
+        public static void GetExp(int exp)
         {
-            if (Lv == 5)
+            if (Program.character.Lv == 5)
             {
                 return;
             }
-            else if (currentExp + exp < MaxExp[Lv - 1])
+            else if (Program.character.CurrentExp + exp < Program.character.MaxExp[Program.character.Lv - 1])
             {
-                currentExp += exp;
+                Program.character.CurrentExp += exp;
                 return;
             }
             else
             {
-                Lv++;
-                currentExp = 0;
+                Program.character.Lv++;
+                if (Program.character.Lv == 5)
+                {
+                    Program.character.CurrentExp = 0;
+                    return;
+                }
+                int upExp = Program.character.CurrentExp + exp - Program.character.MaxExp[Program.character.Lv - 2];
+                Program.character.CurrentExp = 0;
                 Console.WriteLine($"레벨 업!");
-                GetExp(currentExp + exp - MaxExp[Lv - 2]);
+                GetExp(upExp);
             }
         }
         public void HealHp(int amount)
@@ -257,19 +291,55 @@ namespace team17_textRPG
                 Hp = 0;
             }
 
-            Console.WriteLine($"Lv.{Lv} {Name} 을(를) 맞췄습니다. [데미지 : {decreasDamage}] {(isCritical ? "- 치명타 공격!!" : "")}");
-            Console.WriteLine($"\nLv.{Lv} {Name}");
-            Console.WriteLine($"Hp {originalHp} -> {Hp}");
         }
         public void DecreaseHP(int damage)
         {
             beforeHp = Hp;
             Hp -= damage;
         }
-
-        public void PlayerRevive()
+      
+        public static void PlayerRevive()
         {
-            Hp = MaxHp;
+            Program.character.Hp = Program.character.MaxHp;
+        }
+        public void RestUI()
+        {
+            Console.Clear();
+            Console.WriteLine("치료하기");
+            TextArt.DocterArt();
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write("500G ");
+            Console.ResetColor();
+            Console.WriteLine("를 내면 체력을 회복할 수 있습니다.");
+            Console.WriteLine($"현재 체력 : {Hp}");
+            Console.WriteLine($"보유 골드 : {Gold} G");
+            Console.WriteLine();
+            Console.WriteLine("1. 휴식하기");
+            Console.WriteLine("0. 나가기");
+            Console.WriteLine();
+            Console.WriteLine("원하시는 행동을 입력해주세요");
+            Console.Write(">>");
+
+            int result = Program.CheckInput(0, 1);
+
+            switch(result)
+            {
+                case 1 :
+                    Console.Clear();
+                    int originalHp = Hp;
+                    PlayerRevive();
+                    Gold -= 500;
+                    Console.WriteLine($"체력이 모두 회복되었습니다. {originalHp} -> {Hp}");
+                    Console.WriteLine($"보유 골드 : {Gold} G");
+                    Console.WriteLine();
+                    Console.WriteLine("0. 나가기");
+                    Console.ReadLine();
+                    goto case 0;
+
+                case 0 :
+                    Program.StartScene();
+                    break;
+            }
         }
     }
 }
