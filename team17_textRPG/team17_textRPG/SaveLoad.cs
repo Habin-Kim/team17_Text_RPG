@@ -11,36 +11,33 @@ namespace team17_textRPG
     {
         public static void Save()
         {
-            string folderPath = ".\\/save";
-            string characterfilePath = ".\\/save/character.json";
-            DirectoryInfo di = new DirectoryInfo(folderPath);
+            int result;
+            Console.Clear();
+            Console.WriteLine("\n저장하시겠습니까?");
+            Console.WriteLine("1.예  2.아니요");
+            Console.WriteLine("버튼을 입력해주세요");
+            Console.Write(">>");
 
-            if (di.Exists == false)
+            result = Program.CheckInput(1, 2);
+            if (result == 1)
             {
-                di.Create();
-            }
+                string folderPath = ".\\/save";
+                string characterfilePath = ".\\/save/character.json";
+                DirectoryInfo di = new DirectoryInfo(folderPath);
 
-            string jsonStringCharacter = JsonConvert.SerializeObject(Program.character, Newtonsoft.Json.Formatting.Indented);
-            File.WriteAllText(characterfilePath, jsonStringCharacter);
-        }
+                if (di.Exists == false)
+                {
+                    di.Create();
+                }
 
-        public static void Load()
-        {
-            string characterfilePath = ".\\/save/character.json";
-            string characterjsonString = File.ReadAllText(characterfilePath);
-            if (File.Exists(characterfilePath))
-            {
-                Program.character = JsonConvert.DeserializeObject<Character>(characterjsonString);
-                Program.StartScene();
+                string jsonStringCharacter = JsonConvert.SerializeObject(Program.character, Newtonsoft.Json.Formatting.Indented);
+                File.WriteAllText(characterfilePath, jsonStringCharacter);
+
+                SaveGear();
             }
             else
             {
-                Console.WriteLine("저장파일이 존재하지 않습니다.");
-                Console.WriteLine("0.확인");
-                Console.WriteLine("버튼을 입력해주세요");
-                Console.Write(">>");
-
-                Program.CheckInput(0, 0);
+                return;
             }
         }
 
@@ -57,6 +54,51 @@ namespace team17_textRPG
 
             string jsonStringGear = JsonConvert.SerializeObject(Program.gearDb, Newtonsoft.Json.Formatting.Indented);
             File.WriteAllText(gearfilePath, jsonStringGear);
+
+            Console.Clear();
+            Console.WriteLine("\n저장이 완료되었습니다.");
+            Console.WriteLine("1.확인");
+            Console.WriteLine("버튼을 입력해주세요");
+            Console.Write(">>");
+            Program.CheckInput(1, 1);
+        }
+
+        public static int Load()
+        {
+            int result;
+            Console.Clear();
+            Console.WriteLine("\n불러오시겠습니까?");
+            Console.WriteLine("1.예  2.아니요");
+            Console.WriteLine("버튼을 입력해주세요");
+            Console.Write(">>");
+
+            result = Program.CheckInput(1, 2);
+            if (result == 1)
+            {
+                string characterfilePath = ".\\/save/character.json";
+                string characterjsonString = File.ReadAllText(characterfilePath);
+                if (File.Exists(characterfilePath))
+                {
+                    Program.character = JsonConvert.DeserializeObject<Character>(characterjsonString);
+                    Program.LoadGear();
+                    LoadGear();
+                    return 1;
+                }
+                else
+                {
+                    Console.WriteLine("저장파일이 존재하지 않습니다.");
+                    Console.WriteLine("0.확인");
+                    Console.WriteLine("버튼을 입력해주세요");
+                    Console.Write(">>");
+
+                    Program.CheckInput(0, 0);
+                    return 0;
+                }
+            }
+            else
+            {
+                return 0;
+            }
         }
 
         public static void LoadGear()
@@ -66,7 +108,14 @@ namespace team17_textRPG
             if (File.Exists(gearfilePath))
             {
                 Program.gearDb = JsonConvert.DeserializeObject<Gears[]>(gearjsonString);
-                Program.StartScene();
+
+                Console.Clear();
+                Console.WriteLine("\n불러오기가 완료되었습니다.");
+                Console.WriteLine("1.확인");
+                Console.WriteLine("버튼을 입력해주세요");
+                Console.Write(">>");
+                Program.CheckInput(1, 1);
+                return;
             }
             else
             {
@@ -76,6 +125,7 @@ namespace team17_textRPG
                 Console.Write(">>");
 
                 Program.CheckInput(0, 0);
+                return;
             }
         }
     }
