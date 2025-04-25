@@ -229,6 +229,7 @@ namespace team17_textRPG
                                                 / `'--) (--'` \
                                                /  _,-'\_/'-,_  \
                                               /.-'     "     '-.\
+                                                 
                                                  {ms1[i]}
 
                     """);
@@ -246,6 +247,7 @@ namespace team17_textRPG
                                                  ./\/\/ | \_.-._
                                                         ;
                                                      ._/
+                                                
                                                 {ms2[i]} 
 
                     """);
@@ -280,11 +282,11 @@ namespace team17_textRPG
             int i;
             double playerhp = (double)hp / maxhp;
 
-            if(playerhp <= 0.2)
+            if(playerhp <= 0.15)
             {
-                i = 4; // 체력이 20% 이하일 때만 출력되는 대사.
+                i = 4; // 체력이 15% 이하일 때만 출력되는 대사.
             }
-            else if(playerhp <= 0.4)
+            else if(playerhp <= 0.3)
             {
                 i = 3; // 체력이 30% 이하일 때만 출력되는 대사.
             }
@@ -314,6 +316,7 @@ namespace team17_textRPG
                (o/  _  \_*_/
                //\__|__/\
               // |  | |  |
+               
                {talk_player[i]}
 
             """);
@@ -334,11 +337,11 @@ namespace team17_textRPG
                     "몬스터를 단번에 죽이시다니. 대단해요!!",
                     "모험가신가요? 저도 모험가에요. 아직 초짜지만...헤헤",
                     "어?..상처가...",
-                    "제가 치료해드릴게요",
+                    "제가 치료해드릴게요.",
                     "(여자의 몸 주위로 빛 입자가 퍼진다. 상처가 아문다.)",
-                    "다 됐어요. 깊지 않아서 다행이에요. \n혼자 여행중이신가요?",
+                    "다 됐어요. 상처가 깊지 않아서 다행이에요. \n혼자 여행중이신가요?",
                     "(고개를 끄덕이자 여자가 환히 웃는다.)",
-                    "그럼 같이 다녀요!!\n방금 보셨겠지만 전 치유마법사에요",
+                    "그럼 같이 다녀요!!\n방금 보셨겠지만 전 치유마법사에요.",
                     "둘이니까 몬스터도 더이상 무섭지 않을거에요!!"
                 };
 
@@ -374,7 +377,7 @@ namespace team17_textRPG
             {
                 Random rand = new Random(); 
                 double playerhp = (double)hp / maxhp;
-                if (playerhp <= 0.4) //플레이어 체력이 40% 이하일 때
+                if (playerhp <= 0.8) //플레이어 체력이 80% 이하일 때
                 {
                     int chance = rand.Next(0, 100);
                     if (chance < 30) //30% 확률로 실행

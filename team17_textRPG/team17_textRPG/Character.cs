@@ -31,6 +31,7 @@ namespace team17_textRPG
         public int totalAtk => ExtraAtk + Atk;
         public int totalDef => ExtraDef + Def;
 
+
         public bool[] GearsIHave = new bool[] { false, false, false, false, false, false, false, false, false };
         public int[] GearSlot { get; private set; } = new int[] { -1, -1, -1 };
         //private bool[] isSlotEmpty = new bool[] { true, true, true };
@@ -82,7 +83,7 @@ namespace team17_textRPG
             Console.WriteLine(ExtraAtk > 0 ? $"공격력: {Atk + ExtraAtk} +({ExtraAtk})" : $"공격력: {Atk}");
             Console.WriteLine(ExtraDef > 0 ? $"방어력: {Def + ExtraDef} +({ExtraDef})" : $"방어력: {Def}");
             Console.WriteLine($"체 력: {Hp}");
-            Console.WriteLine($"Gold: {totalGold}");
+            Console.WriteLine($"Gold: {Gold}");
             Console.WriteLine($"Exp : {CurrentExp}/{(Lv < 5 ? MaxExp[Lv - 1] : "000")}");
             Console.WriteLine("\n0.나가기");
             Console.WriteLine("\n원하시는 행동을 입력해 주세요.");
@@ -355,6 +356,10 @@ namespace team17_textRPG
                     // Program.StartScene();
                     break;
             }
+        }
+        public void PlusGold()
+        {
+            Gold += Item.getGold;
         }
     }
 }

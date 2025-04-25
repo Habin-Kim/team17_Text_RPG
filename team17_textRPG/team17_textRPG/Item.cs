@@ -112,8 +112,7 @@ namespace team17_textRPG
             if (chance < 50) // 50% 확률
 
             {   
-                //Console.WriteLine("체력회복포션을 1개 얻었습니다.");
-                hpPotion ++;
+                Console.WriteLine("체력회복포션을 1개 얻었습니다.");
                 getPotionCount ++;
             }
             else
@@ -129,8 +128,8 @@ namespace team17_textRPG
             int chance = rand.Next(0, 100);
             if (chance < 50) // 50% 확률
             {
+                Console.WriteLine("100G를 얻었습니다.");
                 getGold += 100;
-                Program.character.getGold += getGold;
             }
             else
             {
