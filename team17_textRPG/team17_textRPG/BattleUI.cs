@@ -14,6 +14,7 @@ namespace team17_textRPG
         public List<Monsters> monsters = new List<Monsters>();
         //public Character character;
         Item item = new Item();
+        TextArt textArt = new TextArt();
 
 
         public BattleUI()
@@ -56,7 +57,8 @@ namespace team17_textRPG
             {
                 damage = (int)Math.Ceiling(damage * 1.6f);
             }
-
+            
+            textArt.MonsterArt(monster.Name);
             Console.WriteLine($"Lv.{monster.Level} {monster.Name} 의 공격!");
             ApplyDamage(character, damage, isCritical);
         }

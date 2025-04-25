@@ -1,4 +1,4 @@
-
+﻿
 using System.Collections;
 using System.Globalization;
 using System.Linq.Expressions;
@@ -278,15 +278,13 @@ namespace team17_textRPG
         public void RestUI()
         {
             Console.Clear();
-            Console.WriteLine("휴식하기");
+            Console.WriteLine("치료하기");
+            TextArt.DocterArt();
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.Write("500G ");
             Console.ResetColor();
             Console.WriteLine("를 내면 체력을 회복할 수 있습니다.");
-            Console.Write("현재 체력 : ");
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine($"{Hp}");
-            Console.ResetColor();
+            Console.WriteLine($"현재 체력 : {Hp}");
             Console.WriteLine($"보유 골드 : {Gold} G");
             Console.WriteLine();
             Console.WriteLine("1. 휴식하기");

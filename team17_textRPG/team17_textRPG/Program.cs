@@ -17,6 +17,7 @@ namespace team17_textRPG
             string getString;
             int getInt;
             Console.Clear();
+            TextArt.TextRpgArt();
             Console.WriteLine("\n스파르타 던전에 오신 여러분 환영합니다.");
             Console.WriteLine("\n이름을 입력해 주세요.");
             Console.Write(">>");
@@ -50,7 +51,7 @@ namespace team17_textRPG
             Console.Clear();
             Console.WriteLine("\n스파르타 던전에 오신 여러분 환영합니다.");
             Console.WriteLine("이제 전투를 시작할 수 있습니다.");
-            Console.WriteLine("\n1. 상태 보기\n2. 상점\n3. 인벤토리\n4. 전투 시작\n5. 회복 아이템\n6. 휴식하기");
+            Console.WriteLine("\n1. 상태 보기\n2. 상점\n3. 인벤토리\n4. 전투 시작\n5. 회복 아이템\n6. 치료하기");
             Console.WriteLine("\n원하시는 행동을 입력해 주세요.");
             Console.Write(">>");
             int result = CheckInput(1, 6);
