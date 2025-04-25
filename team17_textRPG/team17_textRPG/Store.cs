@@ -44,12 +44,13 @@ namespace team17_textRPG
             Console.WriteLine("\n원하시는 행동을 입력해 주세요.");
             Console.Write(">>");
             result = Program.CheckInput(0, gearCount);
-            Gears gear = Program.gearDb[result - 1];
+            
             if (result == 0)
             {
                 ShowStore();
             }
-            else
+            Gears gear = Program.gearDb[result - 1];
+            if (result != 0)
             {
                 Console.Clear();
                 Console.WriteLine("\n상점\n");

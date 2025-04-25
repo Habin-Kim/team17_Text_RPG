@@ -25,7 +25,7 @@ namespace team17_textRPG
         public int currentExp { get; private set; }
         private int extraAtk;
         private int extraDef;
-        private int[] gearSlot = new int[] { 0, 0, 0 };
+        private int[] gearSlot = new int[] { -1, -1, -1 };
         private bool[] isSlotEmpty = new bool[] { true, true, true };
         public int totalAtk => extraAtk + Atk;
         public int totalDef => extraDef + Def;
@@ -68,6 +68,7 @@ namespace team17_textRPG
             Console.WriteLine(extraDef > 0 ? $"방어력: {Def + extraDef} +({extraDef})" : $"방어력: {Def}");
             Console.WriteLine($"체 력: {Hp}");
             Console.WriteLine($"Gold: {Gold}");
+            Console.WriteLine($"Exp : {currentExp}/{(Lv < 5 ? MaxExp[Lv - 1] : "000")}");
             Console.WriteLine("\n0.나가기");
             Console.WriteLine("\n원하시는 행동을 입력해 주세요.");
             Console.Write(">>");
@@ -182,8 +183,10 @@ namespace team17_textRPG
                         {
                             if (gearSlot[0] != -1)
                             {
+                                extraAtk -= InventoryGears[gearSlot[0]].Effect;
                                 InventoryGears[gearSlot[0]].isEquipped = false;
                                 EquippedGears.Remove(InventoryGears[gearSlot[0]]);
+                                EquippedGears.Remove(EquippedGears[0]);
                             }
                             extraAtk += gear.Effect;
                             gearSlot[0] = iNum;
@@ -192,6 +195,7 @@ namespace team17_textRPG
                         {
                             if (gearSlot[1] != -1)
                             {
+                                extraDef -= InventoryGears[gearSlot[1]].Effect;
                                 InventoryGears[gearSlot[1]].isEquipped = false;
                                 EquippedGears.Remove(InventoryGears[gearSlot[1]]);
                             }
@@ -202,6 +206,7 @@ namespace team17_textRPG
                         {
                             if (gearSlot[2] != -1)
                             {
+                                extraDef -= InventoryGears[gearSlot[2]].Effect;
                                 InventoryGears[gearSlot[2]].isEquipped = false;
                                 EquippedGears.Remove(InventoryGears[gearSlot[2]]);
                             }
@@ -223,23 +228,29 @@ namespace team17_textRPG
             InventoryGears.Add(gear);
             Gold -= gear.Price;
         }
-        public void GetExp(int exp)
+        public static void GetExp(int exp)
         {
-            if (Lv == 5)
+            if (Program.character.Lv == 5)
             {
                 return;
             }
-            else if (currentExp + exp < MaxExp[Lv - 1])
+            else if (Program.character.currentExp + exp < Program.character.MaxExp[Program.character.Lv - 1])
             {
-                currentExp += exp;
+                Program.character.currentExp += exp;
                 return;
             }
             else
             {
-                Lv++;
-                currentExp = 0;
+                Program.character.Lv++;
+                if (Program.character.Lv == 5)
+                {
+                    Program.character.currentExp = 0;
+                    return;
+                }
+                int upExp = Program.character.currentExp + exp - Program.character.MaxExp[Program.character.Lv - 2];
+                Program.character.currentExp = 0;
                 Console.WriteLine($"레벨 업!");
-                GetExp(currentExp + exp - MaxExp[Lv - 2]);
+                GetExp(upExp);
             }
         }
         public void HealHp(int amount)
@@ -271,9 +282,9 @@ namespace team17_textRPG
             Hp -= damage;
         }
       
-        public void PlayerRevive()
+        public static void PlayerRevive()
         {
-            Hp = MaxHp;
+            Program.character.Hp = Program.character.MaxHp;
         }
         public void RestUI()
         {
