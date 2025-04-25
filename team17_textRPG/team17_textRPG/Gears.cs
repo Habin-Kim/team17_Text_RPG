@@ -16,14 +16,14 @@ namespace team17_textRPG
         public bool isHave { get; set; }
         public bool isEquipped { get; set; }
 
-        public Gears(string name, string desc, int eff, int price, int type)
+        public Gears(string name, string desc, int eff, int price, int type, bool ishave)
         {
             Name = name;
             Desc = desc;
             Effect = eff;
             Price = price;
             Type = type;
-            isHave = false;
+            isHave = ishave;
             isEquipped = false;
         }
 
@@ -51,7 +51,7 @@ namespace team17_textRPG
                     }
                 }
                 eff = Program.gearDb[i].Type == 1 ? "공격력" : "방어력";
-                Console.WriteLine($"-{(showType == 1 ? "" : i + 1)} {Program.gearDb[i].Name}  | {eff}+{Program.gearDb[i].Effect}  | {Program.gearDb[i].Desc}  | {Program.gearDb[i].Price}");
+                Console.WriteLine($"-{(showType == 1 ? "" : i + 1)} {Program.gearDb[i].Name}  | {eff}+{Program.gearDb[i].Effect}  | {Program.gearDb[i].Desc}  | {(Program.gearDb[i].isHave ? "이미 구매한 상품입니다" :Program.gearDb[i].Price)}");
                 typeBefore = Program.gearDb[i].Type;
 
             }
