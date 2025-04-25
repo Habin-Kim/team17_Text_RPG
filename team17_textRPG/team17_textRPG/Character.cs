@@ -298,7 +298,7 @@ namespace team17_textRPG
             Console.WriteLine($"현재 체력 : {Hp}");
             Console.WriteLine($"보유 골드 : {Gold} G");
             Console.WriteLine();
-            Console.WriteLine("1. 휴식하기");
+            Console.WriteLine("1. 치료하기");
             Console.WriteLine("0. 나가기");
             Console.WriteLine();
             Console.WriteLine("원하시는 행동을 입력해주세요");
