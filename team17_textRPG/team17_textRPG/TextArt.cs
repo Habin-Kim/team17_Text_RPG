@@ -371,7 +371,7 @@ namespace team17_textRPG
             {
                 Random rand = new Random(); 
                 double playerhp = (double)hp / maxhp;
-                if (playerhp <= 0.4) //플레이어 체력이 40% 이하일 때
+                if (playerhp <= 0.8) //플레이어 체력이 80% 이하일 때
                 {
                     int chance = rand.Next(0, 100);
                     if (chance < 30) //30% 확률로 실행
