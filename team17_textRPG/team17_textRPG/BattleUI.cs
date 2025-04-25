@@ -80,10 +80,11 @@ namespace team17_textRPG
                 monster.Hp = 0;
                 Console.WriteLine($"Lv.{monster.Level} {monster.Name} 을(를) 맞췄습니다. [데미지 : {damage}] {(isCritical ? "- 치명타 공격!!" : "")}");
                 Console.WriteLine($"\nLv.{monster.Level} {monster.Name}\nHP {originalHp} -> Dead");
-                Console.WriteLine($"경험치 {monster.Exp}를 얻었습니다.");
+                Console.WriteLine($"\n경험치 {monster.Exp}를 얻었습니다.");
                 Character.GetExp(monster.Exp);
                 Monsters.deadMonsterCount++;
                 item.GetHpPotion();
+                item.GetGold();
 
             }
             else

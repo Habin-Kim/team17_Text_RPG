@@ -7,6 +7,7 @@ namespace team17_textRPG
         public int Effect { get; private set; }
         public static int hpPotion = 3;
         public static int getPotionCount = 0;
+        public static int getGold;
 
         public Item()
         {
@@ -105,9 +106,24 @@ namespace team17_textRPG
             int chance = rand.Next(0, 100);
             if (chance < 50) // 50% 확률
             {   
-                Console.WriteLine("체력회복포션을 1개 얻었습니다.");
+                //Console.WriteLine("체력회복포션을 1개 얻었습니다.");
                 hpPotion ++;
                 getPotionCount ++;
+            }
+            else
+            {
+                return;
+            }
+
+        }
+        public void GetGold()
+        {
+            Random rand = new Random();
+            int chance = rand.Next(0, 100);
+            if (chance < 50) // 50% 확률
+            {
+                getGold += 100;
+                Program.character.getGold += getGold;
             }
             else
             {
