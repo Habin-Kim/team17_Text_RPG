@@ -31,9 +31,6 @@ namespace team17_textRPG
         private bool[] isSlotEmpty = new bool[] { true, true, true };
         public int totalAtk => ExtraAtk + Atk;
         public int totalDef => ExtraDef + Def;
-        public int getGold;
-        public int totalGold => Gold + getGold;
-
         public Character(string name, int jobCode, int lv, int hp, int gold, int currentExp, int extraAtk, int extraDef, int[] gearSlot)
         {
             Name = name;
@@ -77,7 +74,7 @@ namespace team17_textRPG
             Console.WriteLine(ExtraAtk > 0 ? $"공격력: {Atk + ExtraAtk} +({ExtraAtk})" : $"공격력: {Atk}");
             Console.WriteLine(ExtraDef > 0 ? $"방어력: {Def + ExtraDef} +({ExtraDef})" : $"방어력: {Def}");
             Console.WriteLine($"체 력: {Hp}");
-            Console.WriteLine($"Gold: {totalGold}");
+            Console.WriteLine($"Gold: {Gold}");
             Console.WriteLine($"Exp : {CurrentExp}/{(Lv < 5 ? MaxExp[Lv - 1] : "000")}");
             Console.WriteLine("\n0.나가기");
             Console.WriteLine("\n원하시는 행동을 입력해 주세요.");
@@ -350,6 +347,10 @@ namespace team17_textRPG
                     // Program.StartScene();
                     break;
             }
+        }
+        public void PlusGold()
+        {
+            Gold += Item.getGold;
         }
     }
 }
