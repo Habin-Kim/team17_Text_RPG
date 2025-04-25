@@ -42,15 +42,15 @@ namespace team17_textRPG
                 // 레벨에 따른 몬스터 타입 선택
                 if (monsterLevel <= 2)
                 {
-                    monstersList.Add(new Monsters("흡혈박쥐", 2, 5, 15));
+                    monstersList.Add(new Monsters("흡혈박쥐", 2, 5, 15, 10));
                 }
                 else if (monsterLevel <= 4)
                 {
-                    monstersList.Add(new Monsters("감염된옥토퍼스", 3, 9, 10));
+                    monstersList.Add(new Monsters("감염된옥토퍼스", 3, 9, 10, 20));
                 }
                 else
                 {
-                    monstersList.Add(new Monsters("근육고릴라", 5, 8, 25));
+                    monstersList.Add(new Monsters("근육고릴라", 5, 8, 25, 40));
                 }
             }
 
