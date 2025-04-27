@@ -8,6 +8,7 @@ namespace team17_textRPG
 {
     internal class Store
     {
+        static Character character = Program.character;
 
         public static void ShowStore()
         {
@@ -18,7 +19,7 @@ namespace team17_textRPG
                 Console.WriteLine("\n상점\n");
                 TextArt.ShopOwnerArt();
                 Gears.ShowGears(1);
-                Console.WriteLine($"\t\t\t\t\t골드 : {Program.character.Gold}G");
+                Console.WriteLine($"\t\t\t\t\t골드 : {character.Gold}G");
 
                 Console.WriteLine("\n1.장비 구매  0.나가기");
                 Console.WriteLine("\n원하시는 행동을 입력해 주세요.");
@@ -76,9 +77,9 @@ namespace team17_textRPG
                         // break;
                         return;
                     case 1:
-                        if (Program.character.Gold >= gear.Price && !Program.character.GearsIHave[code - 1])
+                        if (character.Gold >= gear.Price && !character.GearsIHave[code - 1])
                         {
-                            Program.character.BuyItem(gear, code - 1);
+                            character.BuyItem(gear, code - 1);
                             Console.Clear();
                             Console.WriteLine("\n상점\n");
                             eff = gear.Type == 1 ? "공격력" : "방어력";
@@ -95,11 +96,11 @@ namespace team17_textRPG
                                     // break;
                                     return;
                                 case 1:
-                                    Program.character.ShowInv();
+                                    character.ShowInv();
                                     break;
                             }
                         }
-                        else if (Program.character.Gold < gear.Price)
+                        else if (character.Gold < gear.Price)
                         {
                             Console.Clear();
                             Console.WriteLine("\n상점\n");
