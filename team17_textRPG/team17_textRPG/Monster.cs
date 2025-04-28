@@ -11,14 +11,16 @@ namespace team17_textRPG
         Item item = new Item();
         bool isDead = false;
         public static int deadMonsterCount;
+        public int Exp { get; private set; }
 
         // 몬스터 레벨에 따라서 스탯 정해짐
-        public Monsters(string name, int level, int atk, int hp)
+        public Monsters(string name, int level, int atk, int hp ,int exp)
         {
             Name = name;
             Level = level;
             Atk = atk;
             Hp = hp;
+            Exp = exp;
             isDead = false;
         }
 
@@ -40,15 +42,15 @@ namespace team17_textRPG
                 // 레벨에 따른 몬스터 타입 선택
                 if (monsterLevel <= 2)
                 {
-                    monstersList.Add(new Monsters("미니언", 2, 5, 15));
+                    monstersList.Add(new Monsters("흡혈박쥐", 2, 5, 15, 10));
                 }
                 else if (monsterLevel <= 4)
                 {
-                    monstersList.Add(new Monsters("공허충", 3, 9, 10));
+                    monstersList.Add(new Monsters("감염된옥토퍼스", 3, 9, 10, 20));
                 }
                 else
                 {
-                    monstersList.Add(new Monsters("대포미니언", 5, 8, 25));
+                    monstersList.Add(new Monsters("근육고릴라", 5, 8, 25, 40));
                 }
             }
 
@@ -76,25 +78,5 @@ namespace team17_textRPG
             Console.ResetColor();
         }
 
-        // 몬스터 피격
-        public void Damage(ref int monsterCount)
-        {
-            // 몬스터 체력 - 플레이어 공격 
-            if (Hp <= 0 && !isDead)
-            {
-                isDead = true;
-                monsterCount--;
-                Console.WriteLine($"Lv.{Level} {Name}");
-                Console.WriteLine($"HP {Hp} -> Dead");
-            }
-        }
-        public void Attack()
-        {
-            if (!isDead)
-            {
-                // 플레이어 체력 - 몬스터 공격력
-                // 캐릭터 클래스에 공격력을 전달 해줘서 방어력 데미지 감소 후 할 건지 
-            }
-        }
     }
 }

@@ -8,26 +8,33 @@ namespace team17_textRPG
 {
     internal class Store
     {
+        static Character character = Program.character;
+
         public static void ShowStore()
         {
             int result;
-            Console.Clear();
-            Console.WriteLine("\n상점\n");
-
-            Gears.ShowGears(1);
-
-            Console.WriteLine("\n1.장비 구매  0.나가기");
-            Console.WriteLine("\n원하시는 행동을 입력해 주세요.");
-            Console.Write(">>");
-            result = Program.CheckInput(0, 1);
-            switch (result)
+            while (true)
             {
-                case 0:
-                    Program.StartScene();
-                    break;
-                case 1:
-                    PurchaseGear();
-                    break;
+                Console.Clear();
+                Console.WriteLine("\n상점\n");
+                TextArt.ShopOwnerArt();
+                Gears.ShowGears(1);
+                Console.WriteLine($"\t\t\t\t\t골드 : {character.Gold}G");
+
+                Console.WriteLine("\n1.장비 구매  0.나가기");
+                Console.WriteLine("\n원하시는 행동을 입력해 주세요.");
+                Console.Write(">>");
+                result = Program.CheckInput(0, 1);
+                switch (result)
+                {
+                    case 0:
+                        // Program.StartScene();
+                        // break;
+                        return;
+                    case 1:
+                        PurchaseGear();
+                        break;
+                }
             }
         }
 
@@ -43,15 +50,18 @@ namespace team17_textRPG
             Console.WriteLine("\n원하시는 행동을 입력해 주세요.");
             Console.Write(">>");
             result = Program.CheckInput(0, gearCount);
-            Gears gear = Program.gearDb[result - 1];
+            int code = result;
             if (result == 0)
             {
-                ShowStore();
+                // ShowStore();
+                return;
             }
-            else
+            Gears gear = Program.gearDb[result - 1];
+            if (result != 0)
             {
                 Console.Clear();
                 Console.WriteLine("\n상점\n");
+                TextArt.GearArt(result);
                 eff = gear.Type == 1 ? "공격력" : "방어력";
                 Console.WriteLine($"- {gear.Name}   |  {eff} + {gear.Effect}   |  {gear.Desc}   |  {gear.Price}");
                 Console.WriteLine("\n구매하시겠습니까?");
@@ -63,13 +73,13 @@ namespace team17_textRPG
                 switch (result)
                 {
                     case 0:
-                        ShowStore();
-                        break;
+                        // ShowStore();
+                        // break;
+                        return;
                     case 1:
-                        if (Program.character.Gold >= gear.Price && !gear.isHave)
+                        if (character.Gold >= gear.Price && !character.GearsIHave[code - 1])
                         {
-                            Program.character.BuyItem(gear);
-                            gear.isHave = true;
+                            character.BuyItem(gear, code - 1);
                             Console.Clear();
                             Console.WriteLine("\n상점\n");
                             eff = gear.Type == 1 ? "공격력" : "방어력";
@@ -82,14 +92,15 @@ namespace team17_textRPG
                             switch (result)
                             {
                                 case 0:
-                                    ShowStore();
-                                    break;
+                                    // ShowStore();
+                                    // break;
+                                    return;
                                 case 1:
-                                    Program.character.ShowInv();
+                                    character.ShowInv();
                                     break;
                             }
                         }
-                        else if (Program.character.Gold < gear.Price)
+                        else if (character.Gold < gear.Price)
                         {
                             Console.Clear();
                             Console.WriteLine("\n상점\n");
@@ -100,7 +111,7 @@ namespace team17_textRPG
                             Console.WriteLine("\n원하시는 행동을 입력해 주세요.");
                             Console.Write(">>");
                             result = Program.CheckInput(0, 0);
-                            ShowStore();
+                            // ShowStore();
                         }
                         else
                         {
@@ -113,9 +124,9 @@ namespace team17_textRPG
                             Console.WriteLine("\n원하시는 행동을 입력해 주세요.");
                             Console.Write(">>");
                             result = Program.CheckInput(0, 0);
-                            ShowStore();
+                            // ShowStore();
                         }
-                        break;
+                        return;
                 }
             }
         }
