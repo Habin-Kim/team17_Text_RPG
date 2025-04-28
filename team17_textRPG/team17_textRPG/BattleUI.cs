@@ -11,6 +11,8 @@ namespace team17_textRPG
 {
     internal class BattleUI
     {
+        Character character = Program.character;
+
         public Random rand = new Random();
         public List<Monsters> monsters = new List<Monsters>();
 
@@ -133,6 +135,7 @@ namespace team17_textRPG
                     monsters[i].BattleInfo();
                 }
                 PrintCharacterInfo();
+                Console.WriteLine("\n0. 취소");
                 Console.WriteLine("\n대상을 선택해 주세요.");
                 Console.Write(">>");
 
@@ -187,14 +190,15 @@ namespace team17_textRPG
                 {
                     if (monsters[i].Hp > 0)
                     {
-                        MonsterAttack(monsters[i], Program.character);
+                        MonsterAttack(monsters[i], character);
                         Console.WriteLine("\n0. 다음");
                         Console.Write(">>");
-                        textArt.FriendsHelp(Program.character.Hp, Program.character.MaxHp);
+
+                        textArt.FriendsHelp(character.Hp, character.MaxHp);
 
                         int result = Program.CheckInput(0, 0);
                     }
-                    if (Program.character.Hp <= 0)
+                    if (character.Hp <= 0)
                     {
                         break;
                     }
@@ -206,8 +210,8 @@ namespace team17_textRPG
         public void PrintCharacterInfo()
         {
             Console.WriteLine("\n[내정보]");
-            Console.WriteLine($"Lv.{Program.character.Lv} {Program.character.Name} ({Program.character.Jobs[Program.character.JobCode - 1]})\nHP {Program.character.Hp}");
-            Console.WriteLine($"Exp.{Program.character.CurrentExp}/{(Program.character.Lv < 5 ? Program.character.MaxExp[Program.character.Lv - 1] : "000")}");
+            Console.WriteLine($"Lv.{character.Lv} {character.Name} ({character.Jobs[character.JobCode - 1]})\nHP {character.Hp}");
+            Console.WriteLine($"Exp.{character.CurrentExp}/{(character.Lv < 5 ? character.MaxExp[character.Lv - 1] : "000")}");
         }
 
         public void PrintBattle()

@@ -3,9 +3,10 @@ namespace team17_textRPG
 
     class Item
     {
+        Character character = Program.character;
         public string Name { get; private set; }
         public int Effect { get; private set; }
-        public static int hpPotion = 3;
+        //public static int hpPotion = 3;
         public static int getPotionCount = 0;
         public static int getGold;
 
@@ -20,7 +21,7 @@ namespace team17_textRPG
         {
             Console.Clear();
             Console.WriteLine("회복");
-            Console.WriteLine($"포션을 사용하면 체력을 30 회복할 수 있습니다. (남은 포션 : {hpPotion})");
+            Console.WriteLine($"포션을 사용하면 체력을 30 회복할 수 있습니다. (남은 포션 : {character.HpPotion})");
             Console.WriteLine();
             Console.WriteLine("1. 사용하기");
             Console.WriteLine("0. 나가기");
@@ -46,16 +47,16 @@ namespace team17_textRPG
         {
             while (true)
             {
-                if (hpPotion > 0)
+                if (character.HpPotion > 0)
                 {
                     //현재 체력이 최대 체력보다 적을 때 -> 포션사용
-                    if (Program.character.Hp < Program.character.MaxHp)
+                    if (character.Hp < character.MaxHp)
                     {
                         Console.Clear();
                         Console.WriteLine("체력이 회복되었습니다.");
-                        Program.character.HealHp(Effect);
-                        Console.WriteLine($"현재체력 : {Program.character.Hp}");
-                        hpPotion--;
+                        character.HealHp(Effect);
+                        Console.WriteLine($"현재체력 : {character.Hp}");
+                        character.HpPotion--;
                         Console.WriteLine();
                         Console.WriteLine("1. 또 사용하기");
                         Console.WriteLine("0. 나가기");
