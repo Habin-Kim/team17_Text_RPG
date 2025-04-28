@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -12,7 +13,7 @@ namespace team17_textRPG
     {
         public Random rand = new Random();
         public List<Monsters> monsters = new List<Monsters>();
-        //public Character character;
+
         Item item = new Item();
         TextArt textArt = new TextArt();
 
@@ -20,15 +21,11 @@ namespace team17_textRPG
         public BattleUI()
         {
             monsters = Monsters.Spawn();
-            //character = Program.character;
         }
         public void CharacterAttack(Character character, Monsters monster)
         {
-            Console.Clear();
-            Console.WriteLine("Battle!!");
-            Console.WriteLine();
-            Console.WriteLine("[PlayerPhase]");
-            Console.WriteLine();
+            PrintBattle();
+            Console.WriteLine("[PlayerPhase]\n");
             int errorRangeCA = (int)Math.Ceiling(character.totalAtk * 0.1);
             int damage = rand.Next(character.totalAtk - errorRangeCA, character.totalAtk + errorRangeCA + 1);
 
@@ -44,11 +41,8 @@ namespace team17_textRPG
 
         public void MonsterAttack(Monsters monster, Character character)
         {
-            Console.Clear();
-            Console.WriteLine("Battle!!");
-            Console.WriteLine();
-            Console.WriteLine("[EnemyPhase]");
-            Console.WriteLine();
+            PrintBattle();
+            Console.WriteLine("[EnemyPhase]\n");
 
             int errorRangeMA = (int)Math.Ceiling(monster.Atk * 0.1);
             int damage = rand.Next(monster.Atk - errorRangeMA, monster.Atk + errorRangeMA + 1);
@@ -97,29 +91,16 @@ namespace team17_textRPG
 
         public void BattleStart()
         {
-            Console.Clear();
-
-            //if (character.Hp != character.MaxHp)
-            //{
-            //    item.DisplayHealUI();
-            //}
+            PrintBattle();
 
             //몬스터 생성 및 몬스터 정보
-            Console.WriteLine("Battle!!");
-            Console.WriteLine();
             for (int i = 0; i < monsters.Count; i++)
             {
                 monsters[i].SpawnInfo();
             }
-            //캐릭터 정보 불러오기
-            Console.WriteLine();
-            Console.WriteLine("[내정보]");
-            Console.WriteLine($"Lv.{Program.character.Lv} {Program.character.Name} ({Program.character.Jobs[Program.character.JobCode - 1]})\nHP {Program.character.Hp}");
-            Console.WriteLine($"Exp.{Program.character.CurrentExp}/{(Program.character.Lv < 5 ? Program.character.MaxExp[Program.character.Lv - 1] : "000")}");
-            Console.WriteLine();
-            Console.WriteLine("1. 공격");
-            Console.WriteLine();
-            Console.WriteLine("대상을 선택해 주세요.");
+            PrintCharacterInfo();
+            Console.WriteLine("\n1. 공격");
+            Console.WriteLine("\n대상을 선택해 주세요.");
             Console.Write(">>");
 
             int result = Program.CheckInput(1, 1);
@@ -135,41 +116,26 @@ namespace team17_textRPG
         {
             while (true)
             {
-                Console.Clear();
-
                 if (Program.character.Hp <= 0)
                 {
+                    Console.Clear();
                     BattleResult battleResult = new BattleResult();
                     battleResult.Lose();
                     break;
                 }
                 //전투화면(캐릭터공격)
-
-                //취소를 누르면 몬스터 공격 턴으로 넘어감.
-                //캐릭터가 공격할 몬스터를 선택하면 공격
-                //몬스터 정보 (타겟숫자표시)
-                Console.WriteLine("Battle!!");
-                Console.WriteLine();
+                //몬스터 정보
+                PrintBattle();
                 for (int i = 0; i < monsters.Count; i++)
                 {
 
                     Console.Write($"{i + 1}. ");
                     monsters[i].BattleInfo();
-                    //Console.WriteLine($"{i + 1}. Lv.{monsters[i].Level} {monsters[i].Name} HP {monsters[i].Hp}");
                 }
-                //캐릭터 정보 불러오기
-                Console.WriteLine();
-                Console.WriteLine("[내정보]");
-                Console.WriteLine($"Lv.{Program.character.Lv} {Program.character.Name} ({Program.character.Jobs[Program.character.JobCode - 1]})\nHP {Program.character.Hp}");
-                Console.WriteLine($"Exp.{Program.character.CurrentExp}/{(Program.character.Lv < 5 ? Program.character.MaxExp[Program.character.Lv - 1] : "000")}");
-                Console.WriteLine();
-                Console.WriteLine("0. 취소");
-                Console.WriteLine();
-                Console.WriteLine("대상을 선택해 주세요.");
+                PrintCharacterInfo();
+                Console.WriteLine("\n대상을 선택해 주세요.");
                 Console.Write(">>");
 
-                // while (true)
-                // {
                 int result = Program.CheckInput(0, monsters.Count);
                 switch (result)
                 {
@@ -178,8 +144,7 @@ namespace team17_textRPG
                         BattleEnemyPhase();
                         break;
                     default:
-                        //몬스터의 체력이 0보다 크면 공격
-                        //몬스터의 체력이 0보다 작으면 공격 불가
+                        //몬스터 체력 0 확인
                         int index = result - 1;
                         Monsters target = monsters[index];
                         if (target.Hp > 0)
@@ -190,14 +155,12 @@ namespace team17_textRPG
                         {
                             Console.Clear();
                             Console.WriteLine("이미 죽은 몬스터 입니다.");
-                            Console.WriteLine();
-                            Console.WriteLine("0. 다음");
+                            Console.WriteLine("\n0. 다음");
                             Console.Write(">>");
                             int missInput = Program.CheckInput(0, 0);
                             continue;
                         }
-                        Console.WriteLine();
-                        Console.WriteLine("0. 다음");
+                        Console.WriteLine("\n0. 다음");
                         Console.Write(">>");
                         int input = Program.CheckInput(0, 0);
                         BattleEnemyPhase();
@@ -210,30 +173,22 @@ namespace team17_textRPG
                     battleResult.Victory();
                     break;
                 }
-                // break;
-                // BattleEnemyPhase();
-                // }
             }
         }
 
         public void BattleEnemyPhase()
         {
-            Console.Clear();
-            //List<Monsters> monsters = new List<Monsters>();
             //전투화면 (몬스터공격)
             while (true)
             {
-                Console.WriteLine("Battle!!");
-                Console.WriteLine();
-                Console.WriteLine("[EnemyPhase]");
-                Console.WriteLine();
+                PrintBattle();
+                Console.WriteLine("[EnemyPhase]\n");
                 for (int i = 0; i < monsters.Count; i++)
                 {
                     if (monsters[i].Hp > 0)
                     {
                         MonsterAttack(monsters[i], Program.character);
-                        Console.WriteLine();
-                        Console.WriteLine("0. 다음");
+                        Console.WriteLine("\n0. 다음");
                         Console.Write(">>");
                         textArt.FriendsHelp(Program.character.Hp, Program.character.MaxHp);
 
@@ -241,14 +196,24 @@ namespace team17_textRPG
                     }
                     if (Program.character.Hp <= 0)
                     {
-                        // BattleResult battleResult = new BattleResult();
-                        // battleResult.Lose();
                         break;
                     }
                 }
                 break;
-                // BattleCharacterPhase();
             }
+        }
+
+        public void PrintCharacterInfo()
+        {
+            Console.WriteLine("\n[내정보]");
+            Console.WriteLine($"Lv.{Program.character.Lv} {Program.character.Name} ({Program.character.Jobs[Program.character.JobCode - 1]})\nHP {Program.character.Hp}");
+            Console.WriteLine($"Exp.{Program.character.CurrentExp}/{(Program.character.Lv < 5 ? Program.character.MaxExp[Program.character.Lv - 1] : "000")}");
+        }
+
+        public void PrintBattle()
+        {
+            Console.Clear();
+            Console.WriteLine("Battle!!\n");
         }
 
     }
