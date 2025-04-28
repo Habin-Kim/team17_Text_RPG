@@ -21,8 +21,8 @@ namespace team17_textRPG
             result = Program.CheckInput(1, 2);
             if (result == 1)
             {
-                string folderPath = ".\\/save";
-                string characterfilePath = ".\\/save/character.json";
+                string folderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "save");
+                string characterfilePath = Path.Combine(folderPath, "character.json");
                 DirectoryInfo di = new DirectoryInfo(folderPath);
 
                 if (di.Exists == false)
@@ -43,8 +43,8 @@ namespace team17_textRPG
 
         public static void SaveGear()
         {
-            string folderPath = ".\\/save";
-            string gearfilePath = ".\\/save/gear.json";
+            string folderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "save");
+            string gearfilePath = Path.Combine(folderPath, "gear.json");
             DirectoryInfo di = new DirectoryInfo(folderPath);
 
             if (di.Exists == false)
@@ -75,7 +75,7 @@ namespace team17_textRPG
             result = Program.CheckInput(1, 2);
             if (result == 1)
             {
-                string characterfilePath = ".\\/save/character.json";
+                string characterfilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "save", "character.json");
                 string characterjsonString = File.ReadAllText(characterfilePath);
                 if (File.Exists(characterfilePath))
                 {
@@ -103,7 +103,7 @@ namespace team17_textRPG
 
         public static void LoadGear()
         {
-            string gearfilePath = ".\\/save/gear.json";
+            string gearfilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "save", "gear.json");
             string gearjsonString = File.ReadAllText(gearfilePath);
             if (File.Exists(gearfilePath))
             {
