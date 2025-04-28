@@ -11,6 +11,8 @@ namespace team17_textRPG
 {
     internal class Character
     {
+        static Character character = Program.character;
+
         public string Name { get; private set; }
         private string Job;
         public string[] Jobs { get; private set; } = new string[] { "전사", "도적" };
@@ -30,6 +32,7 @@ namespace team17_textRPG
         public int ExtraDef { get; private set; }
         public int totalAtk => ExtraAtk + Atk;
         public int totalDef => ExtraDef + Def;
+        public int HpPotion;
 
 
         public bool[] GearsIHave = new bool[] { false, false, false, false, false, false, false, false, false };
@@ -67,6 +70,7 @@ namespace team17_textRPG
             ExtraDef = extraDef;
             GearSlot = gearSlot;
             MeetFriendSceneHasRun = false;
+            HpPotion = 3;
         }
 
         //List<Item> itemList = new List<Item>();
@@ -262,25 +266,25 @@ namespace team17_textRPG
         }
         public static void GetExp(int exp)
         {
-            if (Program.character.Lv == 5)
+            if (character.Lv == 5)
             {
                 return;
             }
-            else if (Program.character.CurrentExp + exp < Program.character.MaxExp[Program.character.Lv - 1])
+            else if (character.CurrentExp + exp < character.MaxExp[Program.character.Lv - 1])
             {
-                Program.character.CurrentExp += exp;
+                character.CurrentExp += exp;
                 return;
             }
             else
             {
-                Program.character.Lv++;
-                if (Program.character.Lv == 5)
+                character.Lv++;
+                if (character.Lv == 5)
                 {
-                    Program.character.CurrentExp = 0;
+                    character.CurrentExp = 0;
                     return;
                 }
-                int upExp = Program.character.CurrentExp + exp - Program.character.MaxExp[Program.character.Lv - 2];
-                Program.character.CurrentExp = 0;
+                int upExp = character.CurrentExp + exp - character.MaxExp[character.Lv - 2];
+                character.CurrentExp = 0;
                 Console.WriteLine($"\n레벨 업!");
                 GetExp(upExp);
             }
@@ -316,7 +320,7 @@ namespace team17_textRPG
       
         public static void PlayerRevive()
         {
-            Program.character.Hp = Program.character.MaxHp;
+            character.Hp = character.MaxHp;
         }
         public void RestUI()
         {
