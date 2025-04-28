@@ -78,25 +78,5 @@ namespace team17_textRPG
             Console.ResetColor();
         }
 
-        // 몬스터 피격
-        public void Damage(ref int monsterCount)
-        {
-            // 몬스터 체력 - 플레이어 공격 
-            if (Hp <= 0 && !isDead)
-            {
-                isDead = true;
-                monsterCount--;
-                Console.WriteLine($"Lv.{Level} {Name}");
-                Console.WriteLine($"HP {Hp} -> Dead");
-            }
-        }
-        public void Attack()
-        {
-            if (!isDead)
-            {
-                // 플레이어 체력 - 몬스터 공격력
-                // 캐릭터 클래스에 공격력을 전달 해줘서 방어력 데미지 감소 후 할 건지 
-            }
-        }
     }
 }

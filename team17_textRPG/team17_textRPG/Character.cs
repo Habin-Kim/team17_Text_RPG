@@ -188,7 +188,6 @@ namespace team17_textRPG
                 {
                     if (gear.isEquipped)
                     {
-                        //EquippedGears.Remove(gear);
                         gear.isEquipped = false;
                         if (gear.Type == 1)
                         {
@@ -244,18 +243,9 @@ namespace team17_textRPG
                             GearSlot[2] = iNum;
                         }
                     }
-                    // ShowInv();
                 }
-                // else
-                // {
-                //     // ShowInv();
-                // }
             }
             return;
-            // else
-            // {
-            //     // ShowInv();
-            // }
         }
 
         public void BuyItem(Gears gear, int code)
@@ -357,7 +347,6 @@ namespace team17_textRPG
                     goto case 0;
 
                 case 0 :
-                    // Program.StartScene();
                     break;
             }
         }
